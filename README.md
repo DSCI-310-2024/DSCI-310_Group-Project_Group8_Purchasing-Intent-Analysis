@@ -16,4 +16,4 @@ This project aims to analyze various features of online shopper’s sessions on 
 To be filled later
 
 # License
-This project is licensed under the terms of the MIT Licence (insert link when done).
+This project is licensed under the terms of the MIT Licence, offered under the [MIT open source license](https://opensource.org/license/MIT). See the [license file](insert later) for more information. 
