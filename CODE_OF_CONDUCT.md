@@ -37,5 +37,5 @@ If inappropriate behaviour is detected, participants will be asked to stop and c
 If an individual violates the code of conduct, please report it to one of the project creators listed in the repository or directly contact the DSCI310 course intructor, Tiffany Timbers, via email at tiffany.timbers@stat.ubc.ca. 
 
 ## Attribution
-- Derived from [UBC Data Science 100 CoC] (https://github.com/UBC-DSCI/dsci-100/blob/master/CODE_OF_CONDUCT.md)
+- Derived from [UBC Data Science 100 CoC](https://github.com/UBC-DSCI/dsci-100/blob/master/CODE_OF_CONDUCT.md)
 - Derived from [Python Community CoC](https://www.python.org/psf/conduct/)
