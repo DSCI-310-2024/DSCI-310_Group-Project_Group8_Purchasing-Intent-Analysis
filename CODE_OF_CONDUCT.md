@@ -1,4 +1,4 @@
-# Code of Conduct 
+# Code of Conduct: DSCI-310_Group-Project_Group8
 
 ## Introduction 
 
@@ -21,4 +21,21 @@ We expect that you are able to abide by the following when interacting with our 
 
 ## Unacceptable behavior
 Examples of Unacceptable behavior on the project's platform include:
-- Harassment of other contributors or memebers of the community 
+- Harassment of other contributors or members of the community
+- Inappropriate verbal comments about individual's background or group membership
+- Discrimation 
+- Displaying explicit images 
+- Disruptive behavior that prevents the progression of the project and/or interfers with community discussions and attempts to collaborate 
+- Excessive swearing
+
+We expect that no one engages in the above and maintains a sense of respect towards all community members and the environment.
+
+## Consequences for unacceptable behavior 
+If inappropriate behaviour is detected, participants will be asked to stop and comply immediately. If the participant continues to engage in unacceptable and inappropriate behavior, violating the code of conduct, they can expect to be invetiagted for their violations and if necessary expelled from the community, no longer obtaining access to the project platform. 
+
+## Incident Reporting Guidelines and Procedures
+If an individual violates the code of conduct, please report it to one of the project creators listed in the repository or directly contact the DSCI310 course intructor, Tiffany Timbers, via email at tiffany.timbers@stat.ubc.ca. 
+
+## Attribution
+- Derived from [UBC Data Science 100 CoC](https://github.com/UBC-DSCI/dsci-100/blob/master/CODE_OF_CONDUCT.md)
+- Derived from [Python Community CoC](https://www.python.org/psf/conduct/)
