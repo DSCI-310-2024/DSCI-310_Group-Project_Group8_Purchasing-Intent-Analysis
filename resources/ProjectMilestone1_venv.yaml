@@ -5,5 +5,6 @@ channels:
 dependencies:
   - conda
   - python=3.7
-  - pandas==1.0.2
+  - pandas== 2.2.1
   - jupyterlab
+  - numpy
