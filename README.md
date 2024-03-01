@@ -4,7 +4,7 @@
 # Contributers/Authors
 * Calvin Choi
 * Nour Abdelfattah
-* Saicharanraj Pusuluri
+* Sai Pusuluri
 * Sana Shams
 
 # Project Summary
