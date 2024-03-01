@@ -1,4 +1,4 @@
-## Code of Conduct 
+# Code of Conduct 
 
 ## Introduction 
 
@@ -6,11 +6,11 @@ We are committed to creating a safe, positive, productive and happy community fo
 
 We expect everyone contributing or interacting with our project to conform to the code of conduct. 
 
-# Diversity and Inclusivity
+## Diversity and Inclusivity
 
 We welcome all individuals from all backgrounds and identities and we are dedicated to ensuring that all individuals feel respected, appreciated and valued for their contributions. 
 
-# Expected Behavior 
+## Expected Behavior 
 We value professionalism, integrity and open mindedness:
     
 We expect that you are able to abide by the following when interacting with our project in any way:
@@ -19,6 +19,6 @@ We expect that you are able to abide by the following when interacting with our 
 - Accepting contructive criticism
 - Being considerate of others' opinions and contributions.
 
-# Unacceptable behavior
+## Unacceptable behavior
 Examples of Unacceptable behavior on the project's platform include:
 - Harassment of other contributors or memebers of the community 
