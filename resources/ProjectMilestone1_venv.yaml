@@ -7,4 +7,3 @@ dependencies:
   - python=3.7
   - pandas== 2.2.1
   - jupyterlab
-  - numpy
