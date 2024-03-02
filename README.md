@@ -15,8 +15,30 @@ This project aims to analyze various features of online shopper’s sessions on 
 # How to Run the Data Analysis
 To replicate our analysis on your machine:
 1. Clone this GitHub Repository on your local machine:
-  1. Click the green ``` code <> ``` button and copy the URL.
+  1. Click the green ``` Code <> ``` button and copy the URL.
+  2. On your local machine's terminal, navigate to the location where you would like this repository to reside in.
+  3. Run the command ``` git clone <URL> ``` in the terminal.
+2. Creating the virtual environment
+  1. Navigate to the cloned repository on your machine.
+  2. Navigate to the ``` resources ``` folder from your terminal by running the command ``` cd reports ```
+  3. Run the command ``` cond env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
+  4.  Activate the virtual environment by running the following command in the terminal: ``` conda activate ProjectMilestone1_env ```
+3. Running the analysis
+  1. Open the repository folder on your IDE (may vary depending on IDE)
+  2. Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
+  3. Make sure the kernel in your IDE is set to ProjectMilestone1_env.
+4. Run the report from top to bottom in you IDE.
+5. To deactivate the virtual environment, run the command ``` conda deactivate ``
 
+# Dependencies
+- ``` conda==23.11.0``` 
+- ``` python=3.12``` 
+- ``` pandas== 2.2.1``` 
+- ``` jupyterlab==4.0.10``` 
+- ``` numpy==1.26.4``` 
+- ``` scikit-learn==1.4.0``` 
+- ``` matplotlib==3.8.2``` 
+- ```seaborn==0.13.2 ```
 
 # License Information
 This project is licensed under the terms of the MIT Licence, offered under the [MIT open source license](https://opensource.org/license/MIT). See the [LICENSE.md](https://github.com/DSCI-310-2024/DSCI_310_GroupProject_Group_8/blob/main/LICENSE.md) file for more information.
