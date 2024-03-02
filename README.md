@@ -15,19 +15,19 @@ This project aims to analyze various features of online shopper’s sessions on 
 # How to Run the Data Analysis
 To replicate our analysis on your machine:
 1. Clone this GitHub Repository on your local machine:
-  1. Click the green ``` Code <> ``` button and copy the URL.
-  2. On your local machine's terminal, navigate to the location where you would like this repository to reside in.
-  3. Run the command ``` git clone <URL> ``` in the terminal.
+  * Click the green ``` Code <> ``` button and copy the URL.
+  * On your local machine's terminal, navigate to the location where you would like this repository to reside in.
+  * Run the command ``` git clone <URL> ``` in the terminal.
 2. Creating the virtual environment
-  1. Navigate to the cloned repository on your machine.
-  2. Navigate to the ``` resources ``` folder from your terminal by running the command ``` cd reports ```
-  3. Run the command ``` cond env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
-  4.  Activate the virtual environment by running the following command in the terminal: ``` conda activate ProjectMilestone1_env ```
+  * Navigate to the cloned repository on your machine.
+  * Navigate to the ``` resources ``` folder from your terminal by running the command ``` cd reports ```
+  * Run the command ``` cond env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
+  * Activate the virtual environment by running the following command in the terminal: ``` conda activate ProjectMilestone1_env ```
 3. Running the analysis
-  1. Open the repository folder on your IDE (may vary depending on IDE)
-  2. Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
-  3. Make sure the kernel in your IDE is set to ProjectMilestone1_env.
-4. Run the report from top to bottom in you IDE.
+  * Open the repository folder on your IDE (may vary depending on IDE)
+  * Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
+  * Make sure the kernel in your IDE is set to ProjectMilestone1_env.
+4. Run the report from top to bottom in your IDE.
 5. To deactivate the virtual environment, run the command ``` conda deactivate ``
 
 # Dependencies
