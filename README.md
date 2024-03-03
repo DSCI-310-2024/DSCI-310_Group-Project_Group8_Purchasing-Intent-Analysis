@@ -21,7 +21,7 @@ To replicate our analysis on your machine:
 2. Creating the virtual environment
    * Navigate to the cloned repository on your machine.
    * Navigate to the ``` resources ``` folder from your terminal by running the command ``` cd resources ```
-   * Run the command ``` cond env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
+   * Run the command ``` conda env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
    * Activate the virtual environment by running the following command in the terminal: ``` conda activate ProjectMilestone1_env ```
 3. Running the analysis
    * Open the repository folder on your IDE (may vary depending on IDE)
