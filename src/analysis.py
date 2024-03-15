@@ -9,23 +9,19 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import ConfusionMatrixDisplay
-from sklearn.pipeline import make_pipeline
 
 @click.command()
 @click.option('--data', type=str, help="Path to clean and preprocessed data")
-@click.option('--train_data', type=str, help="Path to training data")
-@click.option('--test_data', type=str, help="Path to testing data")
+@click.option('--train-data', type=str, help="Path to training data")
+@click.option('--test-data', type=str, help="Path to testing data")
 @click.option('--output_path', type=str, help="Path to output object")
 
 def analyze_data(data, train_data, test_data, output_path):
+    """EDA Analysis Portion """
     # obtaining summary of dataset
     data_summary = data.describe(include = 'all')
-    data_summary.savefig(f'data_summary.png')
-
-    click.echo(f"Data Summary Done")
-
-    train_data = pd.read_csv(train_data)
-    test_data = pd.read_csv(test_data)
+    print(data_summary)
+    click.echo(f"Data Summary")
 
     # creating X_train split
     X_train = train_data.drop(target, axis=1)
@@ -39,7 +35,7 @@ def analyze_data(data, train_data, test_data, output_path):
 
 """Cross validation Function"""
 def mean_std_cross_val_scores(model, X_train, y_train, **kwargs):
-   
+
     scores = cross_validate(model, X_train, y_train, **kwargs)
 
     mean_scores = pd.DataFrame(scores).mean()
