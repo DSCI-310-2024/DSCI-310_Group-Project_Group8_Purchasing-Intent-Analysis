@@ -3,14 +3,14 @@ import click
 from sklearn.model_selection import train_test_split
 
 @click.command()
-@click.argument('preprocessed_data', type=str)
+@click.argument('clean_data', type=str)
 @click.argument('output_folder', type=str)
-def data_split_train_test(preprocessed_data, output_folder):
+def data_split_train_test(clean_data, output_folder):
     """
     Splits preprocessed data into train and test sets and saves them to the output folder.
     """
     # Read preprocessed data from the CSV file
-    data = pd.read_csv(preprocessed_data)
+    data = pd.read_csv(clean_data)
     
     # Define the target column
     target = 'Revenue'
