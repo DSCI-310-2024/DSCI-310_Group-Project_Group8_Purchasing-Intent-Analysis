@@ -9,6 +9,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.pipeline import make_pipeline
 
 @click.command()
 @click.option('--data', type=str, help="Path to clean and preprocessed data")
@@ -23,14 +24,17 @@ def analyze_data(data, train_data, test_data, output_path):
 
     click.echo(f"Data Summary Done")
 
-# creating X_train split
-X_train = train_data.drop(target, axis=1)
-# creating y_train split
-y_train = train_data[target]
-# creating X_test split
-X_test = test_data.drop(target, axis=1)
-# creating y_test split
-y_test = test_data[target]
+    train_data = pd.read_csv(train_data)
+    test_data = pd.read_csv(test_data)
+
+    # creating X_train split
+    X_train = train_data.drop(target, axis=1)
+    # creating y_train split
+    y_train = train_data[target]
+    # creating X_test split
+    X_test = test_data.drop(target, axis=1)
+    # creating y_test split
+    y_test = test_data[target]
 
 
 """Cross validation Function"""
