@@ -12,25 +12,25 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 @click.command()
 @click.option('--data', type=str, help="Path to clean and preprocessed data")
-@click.option('--train_data', type=str, help="Path to training data")
-@click.option('--test_data', type=str, help="Path to testing data")
+@click.option('--train-data', type=str, help="Path to training data")
+@click.option('--test-data', type=str, help="Path to testing data")
 @click.option('--output_path', type=str, help="Path to output object")
 
 def analyze_data(data, train_data, test_data, output_path):
+    """EDA Analysis Portion """
     # obtaining summary of dataset
     data_summary = data.describe(include = 'all')
-    data_summary.savefig(f'data_summary.png')
+    print(data_summary)
+    click.echo(f"Data Summary")
 
-    click.echo(f"Data Summary Done")
-
-# creating X_train split
-X_train = train_data.drop(target, axis=1)
-# creating y_train split
-y_train = train_data[target]
-# creating X_test split
-X_test = test_data.drop(target, axis=1)
-# creating y_test split
-y_test = test_data[target]
+    # creating X_train split
+    X_train = train_data.drop(target, axis=1)
+    # creating y_train split
+    y_train = train_data[target]
+    # creating X_test split
+    X_test = test_data.drop(target, axis=1)
+    # creating y_test split
+    y_test = test_data[target]
 
 
 """Cross validation Function"""
