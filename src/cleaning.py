@@ -4,7 +4,7 @@ import click
 @click.command()
 @click.argument('input_file', type=str)
 @click.argument('processed_file', type=str)
-def process_data(input_file, processed_file):
+def clean_data(input_file, processed_file):
     # Read in data from the CSV file
     data = pd.read_csv(input_file)
     
@@ -40,4 +40,4 @@ def process_data(input_file, processed_file):
     click.echo("Data cleaned and saved successfully to {}".format(processed_file))
 
 if __name__ == '__main__':
-    process_data()
+    clean_data()
