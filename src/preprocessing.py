@@ -41,18 +41,16 @@ def preprocess_data(cleaned_data, output_file):
     # Fit and transform the data
     preprocessed_data = preprocessor.fit_transform(data)
     
-    column_names = (
-    numeric_features +
-    preprocessor.named_transformers_["onehotencoder-1"].get_feature_names_out(categorical_features).tolist() +
-    preprocessor.named_transformers_["onehotencoder-2"].get_feature_names_out(categorical_features).tolist() +
-    binary_features +
-    passthrough_features
-)
+   # Combine numeric and categorical feature names
+    column_names = numeric_features + categorical_features
+    
+    # Append binary features
+    column_names.extend(binary_features)
     
     # Create Data frame and save the preprocessed data to the output file
     pd.DataFrame(column_names).to_csv(output_file, index=False)
     
-    click.echo("Data preprocessing completed. Preprocessed data saved to:", output_file)
+    click.echo("Data preprocessing completed. Preprocessed data saved to:" + output_file)
 
 if __name__ == "__main__":
     preprocess_data()
