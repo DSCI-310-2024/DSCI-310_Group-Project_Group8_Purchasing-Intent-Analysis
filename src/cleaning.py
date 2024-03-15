@@ -21,7 +21,7 @@ def clean_data(input_file, output_file):
     # Save the cleaned data to the output file
     data.to_csv(output_file, index=False)
     
-    print("Data cleaned and saved to:", output_file)
+    click.echo("Data cleaned and saved to:", output_file)
 
 if __name__ == "__main__":
     clean_data()
