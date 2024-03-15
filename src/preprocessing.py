@@ -29,28 +29,28 @@ def preprocess_data(cleaned_data, output_file):
     passthrough_features = ['Browser', 'Region', 'TrafficType']
 
     binary_features = ['Weekend']
-
-    drop_features = ['OperatingSystems']
     
     # Create preprocessor with feature groups and transformers
     preprocessor = make_column_transformer(
         (numeric_transformer, numeric_features),
         (categorical_transformer, categorical_features),
         (binary_transformer, binary_features),
-        ('passthrough', passthrough_features),
-        ('drop', drop_features)
+        ('passthrough', passthrough_features)
     )
     
     # Fit and transform the data
     preprocessed_data = preprocessor.fit_transform(data)
     
-    # Convert the preprocessed data to a DataFrame
-    preprocessed_df = pd.DataFrame(preprocessed_data, columns=numeric_features +
-                                   list(preprocessor.named_transformers_['onehotencoder'].get_feature_names(categorical_features)) +
-                                   binary_features + passthrough_features)
+    column_names = (
+    numeric_features +
+    preprocessor.named_transformers_["onehotencoder-1"].get_feature_names_out(categorical_features).tolist() +
+    preprocessor.named_transformers_["onehotencoder-2"].get_feature_names_out(categorical_features).tolist() +
+    binary_features +
+    passthrough_features
+)
     
-    # Save the preprocessed data to the output file
-    preprocessed_df.to_csv(output_file, index=False)
+    # Create Data frame and save the preprocessed data to the output file
+    pd.DataFrame(column_names).to_csv(output_file, index=False)
     
     click.echo("Data preprocessing completed. Preprocessed data saved to:", output_file)
 
