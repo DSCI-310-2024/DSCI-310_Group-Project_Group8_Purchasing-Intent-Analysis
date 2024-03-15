@@ -35,7 +35,7 @@ y_test = test_data[target]
 
 """Cross validation Function"""
 def mean_std_cross_val_scores(model, X_train, y_train, **kwargs):
-   
+
     scores = cross_validate(model, X_train, y_train, **kwargs)
 
     mean_scores = pd.DataFrame(scores).mean()
