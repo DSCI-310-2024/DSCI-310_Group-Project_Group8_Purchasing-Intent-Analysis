@@ -12,16 +12,16 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 @click.command()
 @click.option('--data', type=str, help="Path to clean and preprocessed data")
-@click.option('--train-data', type=str, help="Path to training data")
-@click.option('--test-data', type=str, help="Path to testing data")
+@click.option('--train_data', type=str, help="Path to training data")
+@click.option('--test_data', type=str, help="Path to testing data")
 @click.option('--output_path', type=str, help="Path to output object")
 
 def analyze_data(data, train_data, test_data, output_path):
-"""EDA Analysis Portion """
-# obtaining summary of dataset
+    # obtaining summary of dataset
     data_summary = data.describe(include = 'all')
-    print(data_summary)
-    click.echo(f"Data Summary")
+    data_summary.savefig(f'data_summary.png')
+
+    click.echo(f"Data Summary Done")
 
 # creating X_train split
 X_train = train_data.drop(target, axis=1)
