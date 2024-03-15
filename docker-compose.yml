@@ -1,6 +1,6 @@
 services:
   project-image:
-    image: project-image:latest
+    image: dsci-310_group-project_group8:latest
     ports:
     - "8888:8888"
     volumes: 
