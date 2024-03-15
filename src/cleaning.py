@@ -10,11 +10,13 @@ def process_data(input_file, processed_file):
     
     # Data cleaning/pre-processing steps go here
     # drop duplicates
-    data.drop_duplicates(inplace=True)
-        
-    # Drop "OperatingSystems" column as mentioned in ipynb file
-    data.drop(columns = ["OperatingSystems"])
+    if (data.duplicated().value_counts() > 0):
 
+        # drop duplicates
+        data.drop_duplicates(inplace=True)
+        
+        # Drop "OperatingSystems" column as mentioned in ipynb file
+        data.drop(columns = ["OperatingSystems"])
 
     # Save the processed data to a new CSV file
     data.to_csv(processed_file, index=False)
