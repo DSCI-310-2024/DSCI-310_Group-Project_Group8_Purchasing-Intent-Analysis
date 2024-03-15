@@ -1,27 +1,43 @@
-import click
 import pandas as pd
+import click
 
 @click.command()
 @click.argument('input_file', type=str)
-@click.argument('output_file', type=str)
-def clean_data(input_file, output_file):
-    """
-    Reads data from the input file, performs data cleaning, and saves the cleaned data to the output file.
-    """
-    # Read the data from the input file
+@click.argument('processed_file', type=str)
+def clean_data(input_file, processed_file):
+    # Read in data from the CSV file
     data = pd.read_csv(input_file)
     
-    # Check for and drop duplicate rows
-    duplicates = data[data.duplicated()]
-    data.drop_duplicates(inplace=True)
-    
-    # Drop the 'OperatingSystems' column
-    data.drop(columns=["OperatingSystems"], inplace=True)
-    
-    # Save the cleaned data to the output file
-    data.to_csv(output_file, index=False)
-    
-    click.echo("Data cleaned and saved to:", output_file)
+    # Data cleaning/pre-processing steps go here
+    # drop null
+    if (data.isnull().sum() > 0):
+        null_values = data.isnull().sum()
+        click.echo(f"Null values before cleaning:\n{null_values}")
+        data.dropna()
+        click.echo(f"Null values after cleaning:\n{null_values}")
 
-if __name__ == "__main__":
+    # drop duplicates
+    if (data.duplicated().value_counts() > 0):
+        duplicates = data[data.duplicated()]
+        click.echo(f"Duplicates before cleaning:\n{duplicates}")
+
+        # drop duplicates
+        data.drop_duplicates(inplace=True)
+        click.echo(f"Duplicates after cleaning: \n{duplicates}")
+
+        # Drop "OperatingSystems" column as mentioned in ipynb file
+        data.drop(columns = ["OperatingSystems"])
+        click.echo(f"dropped OperatingSystems Column")
+
+    else :
+        click.echo(f"No duplicates found!")
+        data.drop(columns = ["OperatingSystems"])
+        click.echo(f"dropped OperatingSystems Column")
+
+    # Save the processed data to a new CSV file
+    data.to_csv(processed_file, index=False)
+    
+    click.echo("Data cleaned and saved successfully to {}".format(processed_file))
+
+if __name__ == '__main__':
     clean_data()
