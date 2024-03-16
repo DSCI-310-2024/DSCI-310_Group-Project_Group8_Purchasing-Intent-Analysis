@@ -113,6 +113,35 @@ Before cleaning, the dataset provides the following features:
     * **This will be our target feature**
 
 
+### Model Selection 
+Among the many factors that data scientists consider for model selection, the two main factors we will consider are accuracy and efficiency.
+
+#### Efficiency
+
+Time efficiency and computational complexity are key factors to model selection. We want models that strike the best balance between getting the results we want and doing it in an efficient manner. KNN is known for its computational intensity, although not reflected in the fit times above, we can be concerned how it might performed on a larger scale. Similarly, we know that the SVM model struggles with computational efficiency and that is what our results reflected in the the fit time. The random forests model came out on top of the efficiency tables with the quickest fit time and scoring time while outperforming all other models in terms of score as well.
+
+#### Performance
+
+In assessing the accuracy of machine learning models, particularly in the context of comparing Random Forests, kNN, and SVM, it's essential to evaluate various metrics and considerations that provide an in-depth evaluation truly reflective of performance. Each of these models offers distinct approaches to classification and regression tasks, leading to variations in performance across different datasets and problem domains. In terms of our results, the clear winner is the random forest model. 
+
+#### Evaluating True Positive Rate, Precision Score
+
+The accuracy score at face value seems to be good, however if we break down further our results by looking at our true positive rate (precision score), we can see that our model actually struggled and because of the class imbalance the effect of this on our score was not reflected in our accuracy. This analysis helps us tame our optimism and helps us insights into how well our model correctly identifies positive instances within the dataset, which is particularly crucial in scenarios with imbalanced classes. Understanding the nuances of class imbalances allows us to make informed decisions about model adjustments, such as implementing techniques like oversampling, undersampling, or adjusting class weights, to improve the model's predictive capability for minority classes. Moreover, it underscores the importance of considering multiple evaluation metrics beyond just accuracy, enabling a more comprehensive assessment of model effectiveness and guiding future iterations or refinements to enhance predictive performance across all classes.
+
+[INSERT RANDOM FOREST CONFUSION MATRIX HERE]
+
+#### Conclusion
+Our findings can be summed up into 2 main points:
+- When it comes to the application of ML to predict online consumer behaviour, the random forests model performs the best and produced the best results.
+
+Random forests was both efficient and accurate. The results provided a very simple solution without much to be further analyzed.
+
+- XYZ are the most important factors that our model depended on to predict whether or not a visitor produced revenue or not.
+
+
+
+##### Margin For Error
+Our results are purely based on the models that we chose to test, and therefore, may not be the absolute best off the shelf models for the given project but in favour of simplicity and the essence of time, among the 3 tested models (KNN, SVM and RF), we've concluded that the random forests model performed the best. 
 
 ## References
 
