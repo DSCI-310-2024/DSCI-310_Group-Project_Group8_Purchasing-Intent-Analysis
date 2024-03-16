@@ -1,1 +1,41 @@
+---
+title: "DSCI 310 Group 8: Online Shopper"
+author: "Calvin Choi, Nour Abdelfattah, Sai Pusuluri, Sana Shams"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        embed-resources: true
+    pdf:
+        toc: true
+        toc-depth: 2
+        fig-pos: "H"
+bibliography: references.bib
+execute: 
+  echo: false
+  warning: false
+editor: source 
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+```
+
+## Summary 
+E-commerce pages host several customers at any given moment, yet its metric of success lies in the visitors who ultimately make purchase. This project uses several machine learning models to learn from webpage data and customer browsing behaviour in order to predict whether or not a given customer will finalize their purchase.
+
+## Introduction 
+It has been no surprise that retail giants like Walmart and Ikea have aggressively invested and developed their e-commerce experiences transitioning away from big box store fronts and converting those assets to hubs for location-based fulfillment @Monteros_2023. The post-pandemic affects on consumer behaviour have accelerated our dependency on digital platforms and have pushed the e-commerce industry to grow a whopping 25% to an industry worth over $4 trillion USD @Shaw_Eschenbrenner_Baier_2022. Consequently, online storefronts get a lot of site traffic but what ultimately matters is their decision to purchase and the volume of revenue. Marketing and User Experience teams are tasked with optimizing a site’s interface and content in order to improve customer retention and the site’s revenue. Given this, understanding customer browsing behaviour and web page features is crucial for not only improving the user’s experience, but also maximizing the retailer’s revenue. Traditionally marketing and user experience studies are conducted through surveys, interviews and ethnographic studies, taking weeks up to months to process. However, machine learning-based marketing research has exponentially reduced the rate at which web metrics and purchase conversion strategies can be processed, while significantly increasing purchase prediction accuracy @Gkikas2022. A common method to evaluate user retention for online web browsing is through clickstream data of the user’s navigation path, however Saka et al. found that combining this information with session information significantly improves the purchase success rate @Sakar_Polat_Katircioglu_Kastro_2018.
+
+This project aims to analyze various features of online shopper’s sessions on a site to predict whether the customer makes a purchase. We will use the dataset, [Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) dataset from the UCI Machine Learning Repository. This dataset was chosen specifically due to its coverage of both user navigation data and session information, allowing for a well-rounded analysis of both the user and e-commerce page's profile.
+
+**Question**
+
+Using all variables provided in the dataset, which group of explanatory variables form the best prediction for the user's purchase intent?
+
+
+
+## References
 
