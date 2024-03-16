@@ -3,7 +3,9 @@ FROM quay.io/jupyter/scipy-notebook:2024-02-24
 # Install Python packages using conda
 RUN conda install --yes \
     numpy=1.26.4 \
-    click=8.1.7 
+    click=8.1.7 \
+    pyYAML=6.0.1 \
+    tabulate=0.9.0
 
 
 # Quarto Installation
