@@ -7,7 +7,7 @@
 # make all
 
 # get analysis outputs
-all: report/shopper_intent_report.html
+all: reports/shopper_intention_analysis_report.html
 
 
 dats: results/output.dat \
@@ -45,8 +45,11 @@ results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_data
 
 ### From here I think we'll need the quarto file
 # write the report
-report/report.html : report/report.qmd figs
-	quarto render report/quarto_filename.qmd
+reports/shopper_intention_analysis_report.html : results reports/shopper_intention_analysis_report.qmd 
+	quarto render reports/shopper_intention_analysis_report.qmd --to html
+
+reports/shopper_intention_analysis_report.pdf: results reports/shopper_intention_analysis_report.qmd
+	quarto render reports/shopper_intent_report.qmd --to pdf
 
 
 #### 
