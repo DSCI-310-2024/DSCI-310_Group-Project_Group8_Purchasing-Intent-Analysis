@@ -7,35 +7,51 @@
 # example usage:
 # make all
 
-# run entire analysis
+# get analysis outputs
 all: report/shopper_intent_report.html
 
 
 dats: results/output.dat \
 
 
-results/isles.dat : scripts/wordcount.py data/isles.txt
-	python scripts/wordcount.py \
-		--input_file=data/isles.txt \
-		--output_file=results/output.dat
+results/model_comparison_results.csv results/random_forest_confusion_matrix.png: scripts/analysis.py data/processed_train_data.csv data/processed_test_data.csv
+	python scripts/analysis.py \
+		--processed_train_data=data/processed_train_data.csv \
+		--processed_test_data=data/processed_test_data.csv \
+		--output_path=results
+
+# get plot figures
+figs : results/figure/revenue_class_distribution.png \
+       results/figure/month_distribution.png \
+       results/figure/browser_distribution.png \
+       results/figure/region_distribution.png \
+       results/figure/traffic_type_distribution.png \
+       results/figure/visitor_type_distribution.png \
+       results/figure/weekend_distribution.png \
+       results/figure/correlation_matrix.png
+
+results/figure/revenue_class_distribution.png \
+results/figure/month_distribution.png \
+results/figure/browser_distribution.png \
+results/figure/region_distribution.png \
+results/figure/traffic_type_distribution.png \
+results/figure/visitor_type_distribution.png \
+results/figure/weekend_distribution.png \
+results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_data.csv
+	python scripts/eda_figures.py \
+		--cleaned_data_file=data/cleaned_data.csv \
+		--figure_prefix=results/figure
 
 
-# plot
-figs : results/figure/isles.png \
 
 
-results/figure/isles.png : scripts/plotcount.py results/isles.dat
-	python scripts/plotcount.py \
-		--input_file=results/isles.dat \
-		--output_file=results/figure/isles.png
-
-
+### From here I think we'll need the quarto file
 # write the report
 report/count_report.html : report/count_report.qmd figs
 	quarto render report/quarto_filename.qmd
 
 clean-dats :
-	rm -f results/isles.dat \
+	rm -f results/output.dat \
 
 clean-figs :
 	rm -f results/figure/isles.png \
