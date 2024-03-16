@@ -35,6 +35,83 @@ This project aims to analyze various features of online shopper’s sessions on 
 
 Using all variables provided in the dataset, which group of explanatory variables form the best prediction for the user's purchase intent?
 
+## Methods
+
+### Plan Summary
+
+|Before starting our analysis, we will perform exploratory data analysis in order to have a better understanding of the distributions of the features in our dataset, as well as their contribution to our target feature, Revenue. 
+
+Following this, the breakdown of our analysis is as follows: 
+
+#### 1. Train-Test Split
+
+Before applying any transformations or conducting any analysis, we will first create a 70-30 split of our data:
+
+* 70% split for the training subset
+
+* 30% split for the testing subset
+
+All training of the models will be strictly conducted on the training set. The testing set will only be used once the model is finalized, and will only be deployed for scoring on the testing set once. This is to ensure that the model is not exposed to the testing set so that it does not 'learn' off of what it is trying to predict.
+
+#### 2. Preprocessing and Transformations
+
+Given that we have different data types, we will apply some transformations to each feature type depending on if the feature is numerical and continuous, discrete and categorical, binary, etc. The transformations will be detailed in Figure[INSERT LATER]. 
+
+#### 3. Training Models
+
+Our target feature, Revenue, is binary so the models chosen will be trained to perform binary classification:
+
+**3.1 Dummy Classifier Model**: 
+The Dummy Classifier Model makes predictions that ignore the input features, in other words, it does not attempt to 'learn' anything from the data. This classifier serves as a baseline to compare to the following models. 
+
+**3.2 kNN:** 
+
+kNN is a simple cluster-based model. Given k, the number of nearest data points, the kNN classifier takes a data point and classifies it according to the the class of its k-nearest neighbours.
+
+
+**3.3 SVM RBF:** 
+
+Support Vector Machines with RBF Kernels act as weighted KNN's. Unlike KNN's, this model bases its decision boundary only on key examples, known as support vectors. The model transforms the input features into a higher dimensional space, generating a decision boundary based on a set of positive and negative examples and their weights along with their similarity measure. This model uses a kernel called RBFs as the similarity metric. 
+
+**3.4 Random Forest Classifier:**
+
+A Random Forest Classifier fits a series of decision tree classifiers on subsets of the given data. Each tree 'overfits' on a select feature, however the model uses averaging of individual trees to improve the predictive accuracy and therefore prevent overfitting. Given that there are many features in our dataset, this model is a strong candidate for our classification problem.
+
+
+##### Evaluating the models
+Each model will be evaluated on the following:
+* fit time
+* score time
+* test score (this is the validation score, not the score from the actual test subset)
+* train score
+
+The model with the best (validation) test score will then be deployed **once** on the test data to obtain a final test score.
+
+
+#### Exploratory Data Analysis
+
+Before cleaning, the dataset provides the following features:
+#### Summary of features
+
+* **Administrative**: the number of pages visited by user of this administrative type
+* **Administrative_Duration**: the amount of time spent on pages of this administrative type
+* **Informational**: the number of pages visited by user of this informational type
+* **Informational_Duration**: the amount of time spent on this informational category of pages
+* **ProductRelated**: the number of pages of this type of product the user visited
+* **ProductRelated_Duration**: the amount of time spent on pages featuring related products
+* **BounceRates**: percentage of visitors who enter the web page then leave ("bounce") without triggering any other requests to the analytics server during the session
+* **ExitRates**: the percentage of pageviews where the given page is the last page before exiting website
+* **PageValues**: the average value for a web page that a user visited before completing an e-commerce transaction
+* **SpecialDay**: the temporal proximity between the day the user is visiting the page and a special day (eg. Valentines Day, Christmas, Mother's Day, etc.). 
+* **Month**: the month the page was viewed
+* **OperatingSystems**: an integer value representing the operating system of the user when viewing the page
+* **Browser**: an integer value representing the user's browser when viewing the page
+* **Region**: an integer value representing the user's traffic type. [Learn more about user traffic types here](https://www.practicalecommerce.com/Understanding-Traffic-Sources-in-Google-Analytics)
+* **VisitorType**: categorizes the user into 'New Visitor', 'Returning Visitor', and 'Other'.
+* **Weekend**: a boolean value, indicating whether the user's session took place during a weekend or not
+* **Revenue**: a boolean value, indicating whether the user made the purchase or not
+    * **This will be our target feature**
+
 
 
 ## References
