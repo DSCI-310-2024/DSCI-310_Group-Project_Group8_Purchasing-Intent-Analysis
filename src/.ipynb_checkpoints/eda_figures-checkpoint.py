@@ -5,12 +5,12 @@ import click
 
 
 @click.command()
-@click.argument('data_file', type=str)
+@click.argument('cleaned_data_file', type=str)
 @click.argument('figure_prefix', type=str)
-def visualize_data(data_file, figure_prefix):
+def visualize_data(cleaned_data_file, figure_prefix):
     # Read the data into a pandas DataFrame
-    data = pd.read_csv(data_file)
-
+    data = pd.read_csv(cleaned_data_file)
+    
     # Revenue Class Distribution
     plt.figure(figsize=(10, 5))
     sns.countplot(data=data, x='Revenue')
