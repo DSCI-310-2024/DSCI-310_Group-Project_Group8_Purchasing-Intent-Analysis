@@ -2,7 +2,6 @@
 
 # This driver script completes the analysis and creates figures 
 # online shopper intent data using machine learning algorithms
-# This script takes no arguments.
 
 # example usage:
 # make all
@@ -44,19 +43,22 @@ results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_data
 
 
 
-
 ### From here I think we'll need the quarto file
 # write the report
-report/count_report.html : report/count_report.qmd figs
+report/report.html : report/report.qmd figs
 	quarto render report/quarto_filename.qmd
 
+
+#### 
 clean-dats :
-	rm -f results/output.dat \
+	rm -f results/output.dat \ 
 
+
+####
 clean-figs :
-	rm -f results/figure/isles.png \
+	rm -f results/figure/output.png \ 
 
-
+####
 clean-all : clean-dats \
 	clean-figs
 	rm -f report/count_report.html
