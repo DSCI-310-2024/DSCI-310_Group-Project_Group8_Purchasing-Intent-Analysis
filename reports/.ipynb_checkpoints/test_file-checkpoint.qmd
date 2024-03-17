@@ -1,0 +1,24 @@
+---
+title: "Test Quarto Document"
+format: html
+---
+
+# Hello, Quarto!
+
+This is a test document.
+
+```{python}
+#| echo: true
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+
+# Create a simple DataFrame
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35]
+})
+
+# Display the DataFrame as a Markdown table
+markdown_table = tabulate(df, tablefmt='pipe', headers='keys', showindex=False)
+display(Markdown(markdown_table))
