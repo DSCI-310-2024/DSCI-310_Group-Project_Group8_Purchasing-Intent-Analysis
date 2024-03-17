@@ -13,8 +13,8 @@ all: reports/shopper_intention_analysis_report.html
 dats: results/output.dat \
 
 
-results/model_comparison_results.csv results/random_forest_confusion_matrix.png: scripts/analysis.py data/processed_train.csv data/processed_test.csv
-	python scripts/analysis.py \
+results/model_comparison_results.csv results/random_forest_confusion_matrix.png: src/analysis.py data/processed_train.csv data/processed_test.csv
+	python src/analysis.py \
 		--processed_train_data=data/processed_train.csv \
 		--processed_test_data=data/processed_test.csv \
 		--output_path=results
@@ -36,8 +36,8 @@ img/eda_region_distribution.png \
 img/eda_traffic_type_distribution.png \
 img/eda_visitor_type_distribution.png \
 img/eda_weekend_distribution.png \
-results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_online_shoppers_intention.csv
-	python scripts/eda_figures.py \
+results/figure/correlation_matrix.png : src/eda_figures.py data/cleaned_online_shoppers_intention.csv
+	python src/eda_figures.py \
 		--cleaned_data_file=data/cleaned_online_shoppers_intention.csv \
 		--figure_prefix=results/figure
 
