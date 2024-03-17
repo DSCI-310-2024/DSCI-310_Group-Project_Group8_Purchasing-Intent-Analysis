@@ -88,7 +88,48 @@ To inform the chosen method of visualization, let us first document if the featu
 
 The summary of each datatype is provided in @tbl-features
 
+Given that Revenue is our target feature, let us examine its distribution in @fig-revenue-distribution.
+
+![Revenue Class Distribution](..\results\figure_revenue_class_distribution.png){#fig-revenue-distribution width=80%}
+
+Figure 2 shows that there does seem to be some class imbalance in the Revenue feature. This might create bias in our models that may perform poorly on the 'True' Revenue cases as there were less examples to fit on.
+
+To compare Revenue with other features, we will perform some feature engineering by creating the feature, Total Revenue, for each of the categorical revenues explored below.
+
+#### Categorical Features: Examining the Distributions
+
+Let us examine the distribution of certain categorical feature to better understand the user demographic.The distributions are:
+
+* distribution of classes within the categorical feature
+
+* distribution of Revenue=True across the different classes for a given feature
+
+![Distribution of Sessions by Month](..\results\figure_month_distribution.png){#fig-month-distribution width=80%}
+
+![Distribution of Sessions by Browser](..\results\figure_browser_distribution.png){#fig-month-distribution width=80%}
+
+![Distribution of Sessions by Region](..\results\figure_region_distribution.png){#fig-region-distribution width=80%}
+
+![Distribution of Sessions by Traffic Type](..\results\figure_traffic_type_distribution.png){#fig-traffic-distribution width=80%}
+
+![Distribution of Sessions by Visitor Type](..\results\figure_visitor_type_distribution.png){#fig-visitor-distribution width=80%}
+
+![Distribution of Sessions by Weekend](..\results\figure_weekend_distribution.png){#fig-weekend-distribution width=80%}
+
+#### Continuous numerical Features: Correlation with Revenue
+
+The remaining features are continuous numerical features. In order to understand their significance to the target feature, Revenue, we will make a correlation plot. To do this, we will create a copy of the original data, and modify it so that:
+
+* Only the numerical features are kept
+
+* Revenue is represented as a numerical feature so that it can be compared with the other numerical features
+
+![Correlation Matrix of Numerical Features](..\results\figure_correlation_matrix.png){#fig-corr_matrix width=80%}
+
+From @fig-corr_matrix, we can see that the features most strongly correlated with Revenue are: PageValues, ProductRelated, and ProductRelated_Duration. It is important to note that the correlation matrix only represents linear correlations, between *pairs* of features. Some correlations may be confounded with other features, so while this matrix is a good starting point, it may not capture all relevant relationships.
+
 ## Methods
+
 
 ### Analysis Plan
 
@@ -129,9 +170,13 @@ A Random Forest Classifier fits a series of decision tree classifiers on subsets
 
 ##### Evaluating the models
 Each model will be evaluated on the following:
+
 * fit time
+
 * score time
+
 * test score (this is the validation score, not the score from the actual test subset)
+
 * train score
 
 The model with the best (validation) test score will then be deployed **once** on the test data to obtain a final test score.
@@ -139,9 +184,68 @@ The model with the best (validation) test score will then be deployed **once** o
 
 ### Analysis
 
-Following the exploratory data analysis, the breakdown of our analysis is as follows: 
+### 1. Train Test Split
+
+**Note**: 
+
+Before splitting the data, the feature Revenue will be transformed at this step as it needs to be transformed to a numerical format using one-hot encoding. This is done at this step because it will be removed from the X_train and X_test sets.
 
 
+### 2. Preprocessing and Transformations
+
+
+| **Feature** | **Transformation** | **Explanation**|
+|-------------|--------------------|----------------|
+| Administrative | scaling |standardize scale with other numerical features|
+| Administrative_Duration | scaling |standardize scale with other numerical features |
+| Informational | scaling |standardize scale with other numerical features |
+| Informational_Duration | scaling |standardize scale with other numerical features |
+| ProductRelated | scaling |standardize scale with other numerical features|
+| ProductRelated_Duration | scaling |standardize scale with other numerical features |
+| BounceRates | scaling |standardize scale with other numerical features|
+| ExitRates | scaling |standardize scale with other numerical features|
+| PageValues | scaling |standardize scale with other numerical features|
+| SpecialDay | scaling |standardize scale with other numerical features |
+| Month | one-hot encoding |categorical feature, need a numerical representation to pass through models|
+| OperatingSystems | drop | justified in EDA, not relevant |
+| Browser | n/a | would apply one-hot encoding but already represented in numerical form |
+| Region | n/a | would apply one-hot encoding but already represented in numerical form |
+| TrafficType | n/a | would apply one-hot encoding but already represented in numerical form |
+| VisitorType | one-hot encoding | categorical feature, need a numerical representation to pass through models|
+| Weekend | one-hot encoding with 'binary=True' | categorical feature, need a numerical representation to pass through models|
+: Data Preprocessing Summary {#tbl-preprocessing}
+
+The summary of preprocessing transformations and the explanation behind each is provided in @tbl-preprocessing.
+
+### Training Models
+
+For this analysis, we defined a custom function that returns the mean and standard deviation cross validation scores. For each model, a pipeline was defined to first preprocess the training split of the data, then pass it through the model to be fit. The documentation of the function is as follows:
+
+**Parameters**
+* model :scikit-learn model
+* X_train : numpy array or pandas DataFrame
+    * X in the training data
+* y_train :
+    * y in the training data
+
+**Returns**
+* pandas Series with mean scores from cross_validation
+
+**Note**: this function definition is taken from CPSC330 2023W1 Course Notes
+
+Moreover, the results of each of the models described in the Analysis Plan section is stored in a table to facilitate comparison of their fit time, score time, test score, and train scores -- including the cross validation scores for each metric.
+
+#### Model Results 
+
+```{python, echo: false}
+
+# Load the CSV file into a pandas DataFrame
+df = pd.read_csv("../results/model_comparison_results.csv")
+
+# Display the DataFrame
+df
+
+```
 
 ### Model Selection 
 Among the many factors that data scientists consider for model selection, the two main factors we will consider are accuracy and efficiency.
@@ -158,20 +262,29 @@ In assessing the accuracy of machine learning models, particularly in the contex
 
 The accuracy score at face value seems to be good, however if we break down further our results by looking at our true positive rate (precision score), we can see that our model actually struggled and because of the class imbalance the effect of this on our score was not reflected in our accuracy. This analysis helps us tame our optimism and helps us insights into how well our model correctly identifies positive instances within the dataset, which is particularly crucial in scenarios with imbalanced classes. Understanding the nuances of class imbalances allows us to make informed decisions about model adjustments, such as implementing techniques like oversampling, undersampling, or adjusting class weights, to improve the model's predictive capability for minority classes. Moreover, it underscores the importance of considering multiple evaluation metrics beyond just accuracy, enabling a more comprehensive assessment of model effectiveness and guiding future iterations or refinements to enhance predictive performance across all classes.
 
-[INSERT RANDOM FOREST CONFUSION MATRIX HERE]
+@fig-rf_matrix illustrates the distribution of the true positives, false positives, true negatives, false negatives for the Random Forests Model. This will be used to calculate the precision score of the model.
+
+![Random Forests Confusion Matrix](..\results\random_forest_confusion_matrix.png){#fig-rf_matrix width=80%}
+
+To obtain the precision score of our model, the following formula was used:
+
+$$ s = TP / (TP + FP) $$
+
+Given this formula, the precision score is: Precision = 0.5585.
 
 #### Conclusion
 Our findings can be summed up into 2 main points:
-- When it comes to the application of ML to predict online consumer behaviour, the random forests model performs the best and produced the best results.
+
+When it comes to the application of ML to predict online consumer behaviour, the random forests model performs the best and produced the best results.
 
 Random forests was both efficient and accurate. The results provided a very simple solution without much to be further analyzed.
 
-- XYZ are the most important factors that our model depended on to predict whether or not a visitor produced revenue or not.
-
-
-
 ##### Margin For Error
 Our results are purely based on the models that we chose to test, and therefore, may not be the absolute best off the shelf models for the given project but in favour of simplicity and the essence of time, among the 3 tested models (KNN, SVM and RF), we've concluded that the random forests model performed the best. 
+
+While it was the best-performing model, the final model's precision score of 56% indicates that the model only predicts the positive class correctly roughly half the time. This could be indicative that the model was quite overfitted on the training model, or that despite the randomization of our train-test split, the training sample was not a good representation of the test split and perhaps the true population of online shoppers sampled in our dataset. Likely, the low precision score is highly influenced by the fact that there was class imbalance in our dataset, as demonstrated in @fig-revenue-distribution, which shows that there are over 4 times more false cases than true for the feature Revenue. As a consequence, the models, no matter how well they perform on the training dataset, are bound to better learn the predictive features for a false Revenue case than a true revenue case simply because of the class distribution in the original dataset. 
+
+For future analysis, perhaps the class imbalance may be addressed by selectively sampling to have fair distribution of both Revenue classes, rather than pure random sampling as was done in our analysis.
 
 ## References
 
