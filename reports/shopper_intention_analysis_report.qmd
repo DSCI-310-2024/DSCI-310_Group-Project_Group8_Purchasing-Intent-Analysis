@@ -35,13 +35,62 @@ This project aims to analyze various features of online shopper’s sessions on 
 
 Using all variables provided in the dataset, which group of explanatory variables form the best prediction for the user's purchase intent?
 
+## Exploratory Data Analysis
+Before starting our analysis, we will perform exploratory data analysis in order to have a better understanding of the distributions of the features in our dataset, as well as their contribution to our target feature, Revenue. 
+
+The dataset provides the following features:
+
+#### Summary of features
+
+* **Administrative**: the number of pages visited by user of this administrative type
+* **Administrative_Duration**: the amount of time spent on pages of this administrative type
+* **Informational**: the number of pages visited by user of this informational type
+* **Informational_Duration**: the amount of time spent on this informational category of pages
+* **ProductRelated**: the number of pages of this type of product the user visited
+* **ProductRelated_Duration**: the amount of time spent on pages featuring related products
+* **BounceRates**: percentage of visitors who enter the web page then leave ("bounce") without triggering any other requests to the analytics server during the session
+* **ExitRates**: the percentage of pageviews where the given page is the last page before exiting website
+* **PageValues**: the average value for a web page that a user visited before completing an e-commerce transaction
+* **SpecialDay**: the temporal proximity between the day the user is visiting the page and a special day (eg. Valentines Day, Christmas, Mother's Day, etc.). 
+* **Month**: the month the page was viewed
+* **OperatingSystems**: an integer value representing the operating system of the user when viewing the page
+* **Browser**: an integer value representing the user's browser when viewing the page
+* **Region**: an integer value representing the user's traffic type. [Learn more about user traffic types here](https://www.practicalecommerce.com/Understanding-Traffic-Sources-in-Google-Analytics)
+* **VisitorType**: categorizes the user into 'New Visitor', 'Returning Visitor', and 'Other'.
+* **Weekend**: a boolean value, indicating whether the user's session took place during a weekend or not
+* **Revenue**: a boolean value, indicating whether the user made the purchase or not
+    * **This will be our target feature**
+
+#### Exploratory Visualization
+To inform the chosen method of visualization, let us first document if the features are continuous values, or if they are discrete categorical values. Some features are categorical but represented as integers so this step will allow for clarification. 
+
+
+| Feature                  | Type                          |
+|--------------------------|-------------------------------|
+| Administrative           | numerical, continuous         |
+| Administrative_Duration  | numerical, continuous         |
+| Informational            | numerical, continuous         |
+| Informational_Duration   | numerical, continuous         |
+| ProductRelated           | numerical, continuous         |
+| ProductRelated_Duration  | numerical, continuous         |
+| BounceRates              | numerical, continuous         |
+| ExitRates                | numerical, continuous         |
+| PageValues               | numerical, continuous         |
+| SpecialDay               | numerical, continuous         |
+| Month                    | categorical, discrete         |
+| Browser                  | categorical, discrete         |
+| Region                   | categorical, discrete         |
+| TrafficType              | categorical, discrete         |
+| VisitorType              | categorical, discrete         |
+| Weekend                  | categorical, discrete, boolean|
+| Revenue                  | categorical, discrete, boolean|
+: Data Types Summary {#tbl-features}
+
+The summary of each datatype is provided in @tbl-features
+
 ## Methods
 
-### Plan Summary
-
-|Before starting our analysis, we will perform exploratory data analysis in order to have a better understanding of the distributions of the features in our dataset, as well as their contribution to our target feature, Revenue. 
-
-Following this, the breakdown of our analysis is as follows: 
+### Analysis Plan
 
 #### 1. Train-Test Split
 
@@ -88,29 +137,10 @@ Each model will be evaluated on the following:
 The model with the best (validation) test score will then be deployed **once** on the test data to obtain a final test score.
 
 
-#### Exploratory Data Analysis
+### Analysis
 
-Before cleaning, the dataset provides the following features:
-#### Summary of features
+Following the exploratory data analysis, the breakdown of our analysis is as follows: 
 
-* **Administrative**: the number of pages visited by user of this administrative type
-* **Administrative_Duration**: the amount of time spent on pages of this administrative type
-* **Informational**: the number of pages visited by user of this informational type
-* **Informational_Duration**: the amount of time spent on this informational category of pages
-* **ProductRelated**: the number of pages of this type of product the user visited
-* **ProductRelated_Duration**: the amount of time spent on pages featuring related products
-* **BounceRates**: percentage of visitors who enter the web page then leave ("bounce") without triggering any other requests to the analytics server during the session
-* **ExitRates**: the percentage of pageviews where the given page is the last page before exiting website
-* **PageValues**: the average value for a web page that a user visited before completing an e-commerce transaction
-* **SpecialDay**: the temporal proximity between the day the user is visiting the page and a special day (eg. Valentines Day, Christmas, Mother's Day, etc.). 
-* **Month**: the month the page was viewed
-* **OperatingSystems**: an integer value representing the operating system of the user when viewing the page
-* **Browser**: an integer value representing the user's browser when viewing the page
-* **Region**: an integer value representing the user's traffic type. [Learn more about user traffic types here](https://www.practicalecommerce.com/Understanding-Traffic-Sources-in-Google-Analytics)
-* **VisitorType**: categorizes the user into 'New Visitor', 'Returning Visitor', and 'Other'.
-* **Weekend**: a boolean value, indicating whether the user's session took place during a weekend or not
-* **Revenue**: a boolean value, indicating whether the user made the purchase or not
-    * **This will be our target feature**
 
 
 ### Model Selection 
