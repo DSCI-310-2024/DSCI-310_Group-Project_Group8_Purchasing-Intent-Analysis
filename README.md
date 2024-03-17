@@ -30,6 +30,17 @@ To replicate our analysis on your machine:
 4. Run the report from top to bottom in your IDE.
 5. To deactivate the virtual environment, run the command ``` conda deactivate ``
 
+# Running the Docker Container and Analysis
+
+To run the project, you will have to run a docker container. To do so:
+- Clone to project repository to your local computer 
+- Navigate to the project directory in a new terminal
+- After doing so successfully, type ```docker-compose up``` in your terminal
+- This runs the container. You should find a set of URLs has been produced, launch the link that starts with http://127.0.0.1 in your browser
+- Now that you are in jupyter, open a terminal and make sure you are in the project's root directory. 
+- Use command ```make clean-all```  to reset the project
+- Finally, type the ```make all``` command to run the analysis. 
+
 # Dependencies
 - ``` conda==23.11.0``` 
 - ``` python=3.12``` 
@@ -39,6 +50,7 @@ To replicate our analysis on your machine:
 - ``` scikit-learn==1.4.0``` 
 - ``` matplotlib==3.8.2``` 
 - ```seaborn==0.13.2 ```
+- ```click==8.1.7```
 
 # License Information
 This project is licensed under the terms of the MIT Licence, offered under the [MIT open source license](https://opensource.org/license/MIT). See the [LICENSE.md](https://github.com/DSCI-310-2024/DSCI_310_GroupProject_Group_8/blob/main/LICENSE.md) file for more information.
