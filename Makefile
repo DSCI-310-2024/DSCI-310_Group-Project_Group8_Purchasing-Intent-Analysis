@@ -7,7 +7,9 @@
 # make all
 
 # get analysis outputs
-all: reports/shopper_intention_analysis_report.html
+all: figs \
+	reports/shopper_intention_analysis_report.html \
+	reports/shopper_intention_analysis_report.pdf
 
 
 dats: results/output.dat \
@@ -36,10 +38,15 @@ img/eda_region_distribution.png \
 img/eda_traffic_type_distribution.png \
 img/eda_visitor_type_distribution.png \
 img/eda_weekend_distribution.png \
+img/eda_correlation_matrix.png \
 results/figure/correlation_matrix.png : src/eda_figures.py data/cleaned_online_shoppers_intention.csv
+	# python src/eda_figures.py \
+	# 	--cleaned_data_file=data/cleaned_online_shoppers_intention.csv \
+	# 	--figure_prefix=results/figure
 	python src/eda_figures.py \
-		--cleaned_data_file=data/cleaned_online_shoppers_intention.csv \
-		--figure_prefix=results/figure
+		data/cleaned_online_shoppers_intention.csv \
+		results/figure
+
 
 
 
@@ -49,7 +56,7 @@ reports/shopper_intention_analysis_report.html : results reports/shopper_intenti
 	quarto render reports/shopper_intention_analysis_report.qmd --to html
 
 reports/shopper_intention_analysis_report.pdf: results reports/shopper_intention_analysis_report.qmd
-	quarto render reports/shopper_intent_report.qmd --to pdf
+	quarto render reports/shopper_intention_analysis_report.qmd --to pdf
 
 
 #### 
@@ -58,8 +65,10 @@ clean-dats :
 
 
 ####
-clean-figs :
-	rm -f results/figure/output.png \ 
+clean-figs:
+	rm -f img/*.png
+	rm -f results/figure/*.png
+	# rm -f results/figure/output.png \ 
 
 ####
 clean-all : clean-dats \
