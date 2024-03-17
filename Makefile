@@ -13,32 +13,32 @@ all: reports/shopper_intention_analysis_report.html
 dats: results/output.dat \
 
 
-results/model_comparison_results.csv results/random_forest_confusion_matrix.png: scripts/analysis.py data/processed_train_data.csv data/processed_test_data.csv
+results/model_comparison_results.csv results/random_forest_confusion_matrix.png: scripts/analysis.py data/processed_train.csv data/processed_test.csv
 	python scripts/analysis.py \
-		--processed_train_data=data/processed_train_data.csv \
-		--processed_test_data=data/processed_test_data.csv \
+		--processed_train_data=data/processed_train.csv \
+		--processed_test_data=data/processed_test.csv \
 		--output_path=results
 
 # get plot figures
-figs : results/figure/revenue_class_distribution.png \
-       results/figure/month_distribution.png \
-       results/figure/browser_distribution.png \
-       results/figure/region_distribution.png \
-       results/figure/traffic_type_distribution.png \
-       results/figure/visitor_type_distribution.png \
-       results/figure/weekend_distribution.png \
-       results/figure/correlation_matrix.png
+figs : img/eda_revenue_class_distribution.png \
+       img/eda_month_distribution.png \
+       img/eda_browser_distribution.png \
+       img/eda_region_distribution.png \
+       img/eda_traffic_type_distribution.png \
+       img/eda_visitor_type_distribution.png \
+       img/eda_weekend_distribution.png \
+       img/eda_correlation_matrix.png
 
-results/figure/revenue_class_distribution.png \
-results/figure/month_distribution.png \
-results/figure/browser_distribution.png \
-results/figure/region_distribution.png \
-results/figure/traffic_type_distribution.png \
-results/figure/visitor_type_distribution.png \
-results/figure/weekend_distribution.png \
-results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_data.csv
+img/eda_revenue_class_distribution.png \
+img/eda_month_distribution.png \
+img/eda_browser_distribution.png \
+img/eda_region_distribution.png \
+img/eda_traffic_type_distribution.png \
+img/eda_visitor_type_distribution.png \
+img/eda_weekend_distribution.png \
+results/figure/correlation_matrix.png : scripts/eda_figures.py data/cleaned_online_shoppers_intention.csv
 	python scripts/eda_figures.py \
-		--cleaned_data_file=data/cleaned_data.csv \
+		--cleaned_data_file=data/cleaned_online_shoppers_intention.csv \
 		--figure_prefix=results/figure
 
 
