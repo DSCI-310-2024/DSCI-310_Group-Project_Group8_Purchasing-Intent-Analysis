@@ -1,0 +1,177 @@
+---
+title: "DSCI 310 Group 8: Online Shopper"
+author: "Calvin Choi, Nour Abdelfattah, Sai Pusuluri, Sana Shams"
+format: 
+    html:
+        toc: true
+        toc-depth: 2
+        embed-resources: true
+    pdf:
+        toc: true
+        toc-depth: 2
+        fig-pos: "H"
+bibliography: references.bib
+execute: 
+  echo: false
+  warning: false
+editor: source 
+---
+
+```{python}
+import pandas as pd
+from IPython.display import Markdown, display
+from tabulate import tabulate
+```
+
+## Summary 
+E-commerce pages host several customers at any given moment, yet its metric of success lies in the visitors who ultimately make purchase. This project uses several machine learning models to learn from webpage data and customer browsing behaviour in order to predict whether or not a given customer will finalize their purchase.
+
+## Introduction 
+It has been no surprise that retail giants like Walmart and Ikea have aggressively invested and developed their e-commerce experiences transitioning away from big box store fronts and converting those assets to hubs for location-based fulfillment @Monteros_2023. The post-pandemic affects on consumer behaviour have accelerated our dependency on digital platforms and have pushed the e-commerce industry to grow a whopping 25% to an industry worth over $4 trillion USD @Shaw_Eschenbrenner_Baier_2022. Consequently, online storefronts get a lot of site traffic but what ultimately matters is their decision to purchase and the volume of revenue. Marketing and User Experience teams are tasked with optimizing a site’s interface and content in order to improve customer retention and the site’s revenue. Given this, understanding customer browsing behaviour and web page features is crucial for not only improving the user’s experience, but also maximizing the retailer’s revenue. Traditionally marketing and user experience studies are conducted through surveys, interviews and ethnographic studies, taking weeks up to months to process. However, machine learning-based marketing research has exponentially reduced the rate at which web metrics and purchase conversion strategies can be processed, while significantly increasing purchase prediction accuracy @Gkikas2022. A common method to evaluate user retention for online web browsing is through clickstream data of the user’s navigation path, however Saka et al. found that combining this information with session information significantly improves the purchase success rate @Sakar_Polat_Katircioglu_Kastro_2018.
+
+This project aims to analyze various features of online shopper’s sessions on a site to predict whether the customer makes a purchase. We will use the dataset, [Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) dataset from the UCI Machine Learning Repository. This dataset was chosen specifically due to its coverage of both user navigation data and session information, allowing for a well-rounded analysis of both the user and e-commerce page's profile.
+
+**Question**
+
+Using all variables provided in the dataset, which group of explanatory variables form the best prediction for the user's purchase intent?
+
+## Exploratory Data Analysis
+Before starting our analysis, we will perform exploratory data analysis in order to have a better understanding of the distributions of the features in our dataset, as well as their contribution to our target feature, Revenue. 
+
+The dataset provides the following features:
+
+#### Summary of features
+
+* **Administrative**: the number of pages visited by user of this administrative type
+* **Administrative_Duration**: the amount of time spent on pages of this administrative type
+* **Informational**: the number of pages visited by user of this informational type
+* **Informational_Duration**: the amount of time spent on this informational category of pages
+* **ProductRelated**: the number of pages of this type of product the user visited
+* **ProductRelated_Duration**: the amount of time spent on pages featuring related products
+* **BounceRates**: percentage of visitors who enter the web page then leave ("bounce") without triggering any other requests to the analytics server during the session
+* **ExitRates**: the percentage of pageviews where the given page is the last page before exiting website
+* **PageValues**: the average value for a web page that a user visited before completing an e-commerce transaction
+* **SpecialDay**: the temporal proximity between the day the user is visiting the page and a special day (eg. Valentines Day, Christmas, Mother's Day, etc.). 
+* **Month**: the month the page was viewed
+* **OperatingSystems**: an integer value representing the operating system of the user when viewing the page
+* **Browser**: an integer value representing the user's browser when viewing the page
+* **Region**: an integer value representing the user's traffic type. [Learn more about user traffic types here](https://www.practicalecommerce.com/Understanding-Traffic-Sources-in-Google-Analytics)
+* **VisitorType**: categorizes the user into 'New Visitor', 'Returning Visitor', and 'Other'.
+* **Weekend**: a boolean value, indicating whether the user's session took place during a weekend or not
+* **Revenue**: a boolean value, indicating whether the user made the purchase or not
+    * **This will be our target feature**
+
+#### Exploratory Visualization
+To inform the chosen method of visualization, let us first document if the features are continuous values, or if they are discrete categorical values. Some features are categorical but represented as integers so this step will allow for clarification. 
+
+
+| Feature                  | Type                          |
+|--------------------------|-------------------------------|
+| Administrative           | numerical, continuous         |
+| Administrative_Duration  | numerical, continuous         |
+| Informational            | numerical, continuous         |
+| Informational_Duration   | numerical, continuous         |
+| ProductRelated           | numerical, continuous         |
+| ProductRelated_Duration  | numerical, continuous         |
+| BounceRates              | numerical, continuous         |
+| ExitRates                | numerical, continuous         |
+| PageValues               | numerical, continuous         |
+| SpecialDay               | numerical, continuous         |
+| Month                    | categorical, discrete         |
+| Browser                  | categorical, discrete         |
+| Region                   | categorical, discrete         |
+| TrafficType              | categorical, discrete         |
+| VisitorType              | categorical, discrete         |
+| Weekend                  | categorical, discrete, boolean|
+| Revenue                  | categorical, discrete, boolean|
+: Data Types Summary {#tbl-features}
+
+The summary of each datatype is provided in @tbl-features
+
+## Methods
+
+### Analysis Plan
+
+#### 1. Train-Test Split
+
+Before applying any transformations or conducting any analysis, we will first create a 70-30 split of our data:
+
+* 70% split for the training subset
+
+* 30% split for the testing subset
+
+All training of the models will be strictly conducted on the training set. The testing set will only be used once the model is finalized, and will only be deployed for scoring on the testing set once. This is to ensure that the model is not exposed to the testing set so that it does not 'learn' off of what it is trying to predict.
+
+#### 2. Preprocessing and Transformations
+
+Given that we have different data types, we will apply some transformations to each feature type depending on if the feature is numerical and continuous, discrete and categorical, binary, etc. The transformations will be detailed in Figure[INSERT LATER]. 
+
+#### 3. Training Models
+
+Our target feature, Revenue, is binary so the models chosen will be trained to perform binary classification:
+
+**3.1 Dummy Classifier Model**: 
+The Dummy Classifier Model makes predictions that ignore the input features, in other words, it does not attempt to 'learn' anything from the data. This classifier serves as a baseline to compare to the following models. 
+
+**3.2 kNN:** 
+
+kNN is a simple cluster-based model. Given k, the number of nearest data points, the kNN classifier takes a data point and classifies it according to the the class of its k-nearest neighbours.
+
+
+**3.3 SVM RBF:** 
+
+Support Vector Machines with RBF Kernels act as weighted KNN's. Unlike KNN's, this model bases its decision boundary only on key examples, known as support vectors. The model transforms the input features into a higher dimensional space, generating a decision boundary based on a set of positive and negative examples and their weights along with their similarity measure. This model uses a kernel called RBFs as the similarity metric. 
+
+**3.4 Random Forest Classifier:**
+
+A Random Forest Classifier fits a series of decision tree classifiers on subsets of the given data. Each tree 'overfits' on a select feature, however the model uses averaging of individual trees to improve the predictive accuracy and therefore prevent overfitting. Given that there are many features in our dataset, this model is a strong candidate for our classification problem.
+
+
+##### Evaluating the models
+Each model will be evaluated on the following:
+* fit time
+* score time
+* test score (this is the validation score, not the score from the actual test subset)
+* train score
+
+The model with the best (validation) test score will then be deployed **once** on the test data to obtain a final test score.
+
+
+### Analysis
+
+Following the exploratory data analysis, the breakdown of our analysis is as follows: 
+
+
+
+### Model Selection 
+Among the many factors that data scientists consider for model selection, the two main factors we will consider are accuracy and efficiency.
+
+#### Efficiency
+
+Time efficiency and computational complexity are key factors to model selection. We want models that strike the best balance between getting the results we want and doing it in an efficient manner. KNN is known for its computational intensity, although not reflected in the fit times above, we can be concerned how it might performed on a larger scale. Similarly, we know that the SVM model struggles with computational efficiency and that is what our results reflected in the the fit time. The random forests model came out on top of the efficiency tables with the quickest fit time and scoring time while outperforming all other models in terms of score as well.
+
+#### Performance
+
+In assessing the accuracy of machine learning models, particularly in the context of comparing Random Forests, kNN, and SVM, it's essential to evaluate various metrics and considerations that provide an in-depth evaluation truly reflective of performance. Each of these models offers distinct approaches to classification and regression tasks, leading to variations in performance across different datasets and problem domains. In terms of our results, the clear winner is the random forest model. 
+
+#### Evaluating True Positive Rate, Precision Score
+
+The accuracy score at face value seems to be good, however if we break down further our results by looking at our true positive rate (precision score), we can see that our model actually struggled and because of the class imbalance the effect of this on our score was not reflected in our accuracy. This analysis helps us tame our optimism and helps us insights into how well our model correctly identifies positive instances within the dataset, which is particularly crucial in scenarios with imbalanced classes. Understanding the nuances of class imbalances allows us to make informed decisions about model adjustments, such as implementing techniques like oversampling, undersampling, or adjusting class weights, to improve the model's predictive capability for minority classes. Moreover, it underscores the importance of considering multiple evaluation metrics beyond just accuracy, enabling a more comprehensive assessment of model effectiveness and guiding future iterations or refinements to enhance predictive performance across all classes.
+
+[INSERT RANDOM FOREST CONFUSION MATRIX HERE]
+
+#### Conclusion
+Our findings can be summed up into 2 main points:
+- When it comes to the application of ML to predict online consumer behaviour, the random forests model performs the best and produced the best results.
+
+Random forests was both efficient and accurate. The results provided a very simple solution without much to be further analyzed.
+
+- XYZ are the most important factors that our model depended on to predict whether or not a visitor produced revenue or not.
+
+
+
+##### Margin For Error
+Our results are purely based on the models that we chose to test, and therefore, may not be the absolute best off the shelf models for the given project but in favour of simplicity and the essence of time, among the 3 tested models (KNN, SVM and RF), we've concluded that the random forests model performed the best. 
+
+## References
+
