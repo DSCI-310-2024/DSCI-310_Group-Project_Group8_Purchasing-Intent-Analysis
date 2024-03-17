@@ -2,12 +2,12 @@
   "base_url": "/",
   "hostname": "0.0.0.0",
   "password": false,
-  "pid": 8,
+  "pid": 7,
   "port": 8888,
   "root_dir": "/home/jovyan",
   "secure": false,
   "sock": "",
-  "token": "df9c378689e446845715a037212a6c98227f6b848344218b",
+  "token": "dc7234f187787cebf31315ca5001223a996f04a9ec5703dd",
   "url": "http://abd66399fb82:8888/",
   "version": "2.12.5"
 }
