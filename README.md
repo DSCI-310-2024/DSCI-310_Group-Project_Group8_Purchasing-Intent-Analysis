@@ -34,9 +34,10 @@ To replicate our analysis on your machine:
 
 To run the project, you will have to run a docker container. To do so:
 - Clone to project repository to your local computer 
-- Navigate to the project directory in a new terminal
-- After doing so successfully, type ```docker-compose up``` in your terminal
-- This runs the container. You should find a set of URLs has been produced, launch the link that starts with http://127.0.0.1 in your browser
+- Navigate to the project directory DSCI-310_Group-Project_Group8 in a new terminal
+- After doing so, type ```docker-compose up``` in your terminal
+- This runs the container. You should find a set of URLs has been produced. 
+- Launch the link that starts with http://127.0.0.1 in your browser
 - Now that you are in jupyter, open a terminal and make sure you are in the project's root directory. 
 - Use command ```make clean-all```  to reset the project
 - Finally, type the ```make all``` command to run the analysis. 
