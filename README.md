@@ -35,6 +35,7 @@ To replicate our analysis on your machine:
 To run the project, you will have to run a docker container. To do so:
 - Clone to project repository to your local computer 
 - Navigate to the project directory DSCI-310_Group-Project_Group8 in a new terminal
+- Type ``docker-compose pull`` in your terminal
 - After doing so, type ```docker-compose up``` in your terminal
 - This runs the container. You should find a set of URLs has been produced. 
 - Launch the link that starts with http://127.0.0.1 in your browser
