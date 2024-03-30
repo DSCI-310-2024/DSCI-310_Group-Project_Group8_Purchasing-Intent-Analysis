@@ -17,7 +17,8 @@ USER root
 # Install system dependencies for Quarto
 RUN apt-get update && apt-get install -y \
     make \
-    gdebi
+    gdebi \ 
+    lmodern
 
 # Download and install Quarto
 ARG QUARTO_VERSION="1.4.537"
