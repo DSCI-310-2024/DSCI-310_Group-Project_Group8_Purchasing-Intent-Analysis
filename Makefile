@@ -8,8 +8,10 @@
 
 # get analysis outputs
 all: figs \
+	results/model_comparison_results.csv results/random_forest_confusion_matrix.png \
+	results/figure/correlation_matrix.png \
 	reports/shopper_intention_analysis_report.html \
-	reports/shopper_intention_analysis_report.pdf
+	# reports/shopper_intention_analysis_report.pdf
 
 
 dats: results/output.dat \
@@ -50,13 +52,13 @@ results/figure/correlation_matrix.png : src/eda_figures.py data/cleaned_online_s
 
 
 
-### From here I think we'll need the quarto file
+
 # write the report
 reports/shopper_intention_analysis_report.html : results reports/shopper_intention_analysis_report.qmd 
 	quarto render reports/shopper_intention_analysis_report.qmd --to html
 
-reports/shopper_intention_analysis_report.pdf: results reports/shopper_intention_analysis_report.qmd
-	quarto render reports/shopper_intention_analysis_report.qmd --to pdf
+# reports/shopper_intention_analysis_report.pdf: results reports/shopper_intention_analysis_report.qmd
+# 	quarto render reports/shopper_intention_analysis_report.qmd --to pdf
 
 
 #### 
