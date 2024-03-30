@@ -28,20 +28,33 @@ To replicate our analysis on your machine:
    * Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
    * Make sure the kernel in your IDE is set to ProjectMilestone1_env.
 4. Run the report from top to bottom in your IDE.
-5. To deactivate the virtual environment, run the command ``` conda deactivate ``
+5. To deactivate the virtual environment, run the command ``` conda deactivate ```
 
 # Running the Docker Container and Analysis
 
 To run the project, you will have to run a docker container. To do so:
 - Clone to project repository to your local computer 
 - Navigate to the project directory DSCI-310_Group-Project_Group8 in a new terminal
-- Type ``docker-compose pull`` in your terminal
-- After doing so, type ```docker-compose up``` in your terminal
+- Type ```docker-compose pull``` in your terminal
+
+**To view in IDE**
+- Type ```docker-compose run --rm project-image bash``` to enter the container
+- Ensure you are in the root directory
+- Use command ```make clean-all``` to reset the project
+- Use command ```make all``` to run the analysis and produce the HTML report.
+- Type ```exit``` in terminal to exit container. 
+
+
+OR 
+
+**To view in Jupyter Notebook**
+- Type ```docker-compose up``` in your terminal
 - This runs the container. You should find a set of URLs has been produced. 
-- Launch the link that starts with http://127.0.0.1 in your browser
+- Launch the link that starts with http://127.0.0.1 in your browser to view files in a jupyter notebook
 - Now that you are in jupyter, open a terminal and make sure you are in the project's root directory. 
 - Use command ```make clean-all```  to reset the project
-- Finally, type the ```make all``` command to run the analysis. 
+- Finally, type the ```make all``` command to run the analysis.
+- Type ``ctrl + C`` (Windows) or   ``command + C`` in terminal to exit.
 
 # Dependencies
 - ``` conda==23.11.0``` 
