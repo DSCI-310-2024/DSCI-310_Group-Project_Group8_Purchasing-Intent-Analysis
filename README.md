@@ -19,10 +19,9 @@ To replicate our analysis on your machine:
    * On your local machine's terminal, navigate to the location where you would like this repository to reside in.
    * Run the command ``` git clone <URL> ``` in the terminal.
 2. Creating the virtual environment
-   * Navigate to the cloned repository on your machine.
-   * Navigate to the ``` resources ``` folder from your terminal by running the command ``` cd resources ```
-   * Run the command ``` conda env create --file ProjectMilestone1_venv.yaml ``` in the terminal. You may navigate out of the ``` resources ``` folder at this point. 
-   * Activate the virtual environment by running the following command in the terminal: ``` conda activate ProjectMilestone1_env ```
+   * Navigate to the cloned repository on your machine. Ensure you are in the root of the repository.
+   * Run the command ``` conda env create --file environment.yaml ``` in the terminal. 
+   * Activate the virtual environment by running the following command in the terminal: ``` conda activate project_env ```
 3. Running the analysis
    * Open the repository folder on your IDE (may vary depending on IDE)
    * Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
