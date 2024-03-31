@@ -15,11 +15,11 @@ def process_data(x_train_csv_path, y_train_csv_path, processed_file):
     - y_train_csv_path: Path to the CSV file containing targets.
     - processed_file: Path where the cleaned and processed CSV file will be saved.
     """
-    # Concatenate features and targets into a single DataFrame
-    X = pd.read_csv(x_train_csv_path)
-    y = pd.read_csv(y_train_csv_path)
+    # Concatenate train features and targets into a single DataFrame
+    X_train = pd.read_csv(x_train_csv_path)
+    y_train = pd.read_csv(y_train_csv_path)
 
-    train_data = pd.concat([X, y], axis=1)
+    train_data = pd.concat([X_train, y_train], axis=1)
     click.echo("Features and targets concatenated.")
 
     # Cleaning Data

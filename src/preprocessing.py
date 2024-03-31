@@ -6,9 +6,11 @@ from sklearn.compose import ColumnTransformer
 @click.command()
 @click.argument('x_train_file', type=click.Path(exists=True))
 @click.argument('x_test_file', type=click.Path(exists=True))
-@click.argument('x_train_output_file', type=str)
-@click.argument('x_test_output_file', type=str)
-def preprocess_data(x_train_file, x_test_file, x_train_output_file, x_test_output_file):
+@click.argument('y_train_file', type=click.Path(exists=True))
+@click.argument('y_test_file', type=click.Path(exists=True))
+@click.argument('train_output_file', type=str)
+@click.argument('test_output_file', type=str)
+def preprocess_data(x_train_file, x_test_file, y_train_file, y_test_file, train_output_file, test_output_file):
     """
     Reads the input dataset, applies preprocessing transformations, and saves
     the preprocessed data to an output file.
@@ -29,12 +31,9 @@ def preprocess_data(x_train_file, x_test_file, x_train_output_file, x_test_outpu
 
     categorical_features = ['Month', 'VisitorType']
 
-    passthrough_features = ['Browser', 'Region', 'TrafficType']
+    passthrough_features = ['Browser', 'Region', 'TrafficType', 'OperatingSystems']
 
     binary_features = ['Weekend']
-
-    # Features to be dropped
-    drop_features = ['OperatingSystems']
 
     # Create the preprocessor
     # preprocessor = make_column_transformer(
@@ -51,14 +50,16 @@ def preprocess_data(x_train_file, x_test_file, x_train_output_file, x_test_outpu
             ('categorical', categorical_transformer, categorical_features),
             ('binary', binary_transformer, binary_features),
             ('passthrough', 'passthrough', passthrough_features),
-            ],
-            remainder='drop'  # This drops the columns in drop_features
+            ]
     )
 
     # fitting and transforming data
     X_train_transformed = preprocessor.fit_transform(X_train)
 
     X_test_transformed = preprocessor.transform(X_test)
+
+    y_train = pd.read_csv(y_train_file)
+    y_test = pd.read_csv(y_test_file)
 
     # obtaining transformed column names
     categorical_columns = preprocessor.named_transformers_['categorical'].get_feature_names_out(categorical_features)
@@ -67,11 +68,14 @@ def preprocess_data(x_train_file, x_test_file, x_train_output_file, x_test_outpu
     X_train_transformed_df = pd.DataFrame(X_train_transformed, columns=transformed_column_names)
     X_test_transformed_df = pd.DataFrame(X_test_transformed, columns=transformed_column_names)
 
-    # Save the preprocessed data to an output file
-    X_train_transformed_df.to_csv(x_train_output_file, index=False)
-    X_test_transformed_df.to_csv(x_test_output_file, index=False)
+    train_transformed = pd.concat([X_train_transformed_df, y_train], axis=1)
+    test_transformed = pd.concat([X_test_transformed_df, y_test], axis=1)
 
-    click.echo(f"Preprocessed data saved to {x_train_output_file} and {x_test_output_file}")
+    # Save the preprocessed data to an output file
+    train_transformed.to_csv(train_output_file, index=False)
+    test_transformed.to_csv(test_output_file, index=False)
+
+    click.echo(f"Preprocessed data saved to {train_output_file} and {test_output_file}")
 
 if __name__ == '__main__':
     preprocess_data()
