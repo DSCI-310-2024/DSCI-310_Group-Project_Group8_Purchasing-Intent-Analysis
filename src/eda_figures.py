@@ -123,6 +123,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     click.echo("Weekend Distrubution plots Complete!")
 
     # Correlation Matrix of Numerical Features
+    
     numerical_features = data.select_dtypes(include=['int64', 'float64'])
     corr_matrix = numerical_features.corr()
     plt.figure(figsize=(10, 8))
