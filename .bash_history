@@ -28,3 +28,6 @@ pytest
 pytest
 pytest
 exit
+cd src
+python eda_figures.py ../data/cleaned_features.csv ../data/cleaned_targets.csv ../img/figure
+exit
