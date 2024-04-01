@@ -10,7 +10,7 @@ data/online_shoppers_intention.csv: src/read_data.py
 
 # clean data
 data/cleaned_features.csv data/cleaned_targets.csv: src/cleaning.py data/raw_features.csv data/raw_targets.csv
-	python src/cleaning.py data/features.csv data/targets.csv data/cleaned_features.csv data/cleaned_targets.csv
+	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned_features.csv data/cleaned_targets.csv
 
 # data_split
 data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned_features.csv data/cleaned_targets.csv
