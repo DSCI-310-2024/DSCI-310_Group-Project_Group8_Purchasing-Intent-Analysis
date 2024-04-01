@@ -18,3 +18,33 @@ python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test
 python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test_data.csv ../results
 python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test_data.csv ../results
 exit
+make clean-all
+make clean-all
+make all
+make clean-all
+make all
+code
+makefile
+exit
+make clean-all
+make all
+make clean-all
+make clean-all
+make clean-all
+make all
+make all
+make all
+make all
+make all
+make all
+make all
+make all
+make all
+make all
+make all
+make clean
+clean-all
+make clean-all
+run all
+make all
+make clean-all

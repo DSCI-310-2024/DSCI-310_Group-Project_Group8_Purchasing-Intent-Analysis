@@ -1,0 +1,7 @@
+\contentsline {subsection}{\nonumberline Summary}{1}{subsection*.3}%
+\contentsline {subsection}{\nonumberline Introduction}{1}{subsection*.5}%
+\contentsline {subsection}{\nonumberline Exploratory Data Analysis}{2}{subsection*.7}%
+\contentsline {paragraph}{\nonumberline Summary of features}{2}{paragraph*.9}%
+\contentsline {paragraph}{\nonumberline Exploratory Visualization}{3}{paragraph*.11}%
+\contentsline {paragraph}{\nonumberline Categorical Features: Examining the Distributions}{4}{paragraph*.14}%
+\contentsline {paragraph}{\nonumberline Continuous numerical Features: Correlation with Revenue}{7}{paragraph*.22}%

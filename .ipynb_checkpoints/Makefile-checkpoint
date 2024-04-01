@@ -1,7 +1,8 @@
 # Makefile
 
 # Main target
-all: reports/shopper_intention_analysis_report.html
+all: reports/shopper_intention_analysis_report.html \
+
 
 # read data
 DATASET_ID = 468
@@ -19,7 +20,7 @@ data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned_
 # pre-process data
 data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
     python src/preprocessing.py data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv data/preprocessed_train_data.csv data/preprocessed_test_data.csv
-    
+
 # EDA figures
 .PHONY: eda_figures
 
@@ -51,8 +52,10 @@ reports/shopper_intention_analysis_report.html : results reports/shopper_intenti
     quarto render reports/shopper_intention_analysis_report.qmd --to html
 
 .PHONY: clean-figs clean-all
+
 clean-figs:
     rm -f img/eda_*.png
 
 clean-all: clean-figs
     rm -f data/*.csv results/*.csv results/*.png reports/*.html
+
