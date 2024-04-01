@@ -5,11 +5,16 @@ import click
 
 
 @click.command()
-@click.argument('cleaned_data_file', type=str)
+@click.argument('cleaned_x_file', type=str)
+@click.argument('cleaned_y_file', type=str)
 @click.argument('figure_prefix', type=str)
-def visualize_data(cleaned_data_file, figure_prefix):
+def visualize_data(cleaned_x_file,cleaned_y_file, figure_prefix):
     # Read the data into a pandas DataFrame
-    data = pd.read_csv(cleaned_data_file)
+    X = pd.read_csv(cleaned_x_file)
+    y = pd.read_csv(cleaned_y_file)
+
+    # Combine the features and target into a single DataFrame
+    data = pd.concat([X, y], axis=1)
 
     # Path where figures will be saved
     img_dir = '../img/'
