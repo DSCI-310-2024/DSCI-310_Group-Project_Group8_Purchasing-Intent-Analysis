@@ -28,3 +28,42 @@ pytest
 pytest
 pytest
 exit
+cd reports
+open shopper_intention_analysis_report.html
+exit
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make clean-all
+make clean-all
+make all
+make clean-all
+make clean
+make all
+cd src
+python eda_figures.py ../data/cleaned_features.csv ../data/cleaned_targets.csv ../img/figure
+cd ..
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make clean-all
+make all
+exit
