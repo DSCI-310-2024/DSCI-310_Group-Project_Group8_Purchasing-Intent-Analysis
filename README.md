@@ -65,6 +65,7 @@ OR
 - ``` matplotlib==3.8.2``` 
 - ```seaborn==0.13.2 ```
 - ```click==8.1.7```
+- ```ucimlrepo```
 
 # License Information
 This project is licensed under the terms of the MIT Licence, offered under the [MIT open source license](https://opensource.org/license/MIT). See the [LICENSE.md](https://github.com/DSCI-310-2024/DSCI_310_GroupProject_Group_8/blob/main/LICENSE.md) file for more information.

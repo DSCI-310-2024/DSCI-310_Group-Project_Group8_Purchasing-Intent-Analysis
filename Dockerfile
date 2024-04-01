@@ -25,5 +25,8 @@ ARG QUARTO_VERSION="1.4.537"
 RUN curl -o quarto-linux-amd64.deb -L https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb && \
     gdebi --non-interactive quarto-linux-amd64.deb
 
+# Install ucimlrepo using pip
+RUN pip install ucimlrepo
+
 # Switch back to the jovyan user
 USER $NB_UID

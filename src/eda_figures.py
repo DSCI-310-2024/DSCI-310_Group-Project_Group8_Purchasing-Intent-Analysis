@@ -5,11 +5,19 @@ import click
 
 
 @click.command()
-@click.argument('cleaned_data_file', type=str)
+@click.argument('cleaned_x_file', type=str)
+@click.argument('cleaned_y_file', type=str)
 @click.argument('figure_prefix', type=str)
-def visualize_data(cleaned_data_file, figure_prefix):
+def visualize_data(cleaned_x_file,cleaned_y_file, figure_prefix):
     # Read the data into a pandas DataFrame
-    data = pd.read_csv(cleaned_data_file)
+    X = pd.read_csv(cleaned_x_file)
+    y = pd.read_csv(cleaned_y_file)
+
+    # Combine the features and target into a single DataFrame
+    data = pd.concat([X, y], axis=1)
+
+    # Path where figures will be saved
+    img_dir = '../img/'
     
     # Revenue Class Distribution
     plt.figure(figsize=(10, 5))
@@ -17,7 +25,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     plt.title('Revenue Class Distribution')
     plt.xlabel('Revenue')
     plt.ylabel('Count')
-    plt.savefig(f'{figure_prefix}_revenue_class_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_revenue_class_distribution.png')
     plt.close()
     click.echo("Revenue Class Distrubution plots Complete!")
 
@@ -33,7 +41,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Number of Purchases')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_month_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_month_distribution.png')
     plt.close()
     click.echo("Month Distrubution plots Complete!")
 
@@ -50,7 +58,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Revenue (Number of Purchases)')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_browser_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_browser_distribution.png')
     plt.close()
     click.echo("Browser Distrubution plots Complete!")
 
@@ -67,7 +75,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Revenue (Number of Purchases)')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_region_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_region_distribution.png')
     plt.close()
     click.echo("Region Distrubution plots Complete!")
 
@@ -84,7 +92,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Revenue (Number of Purchases)')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_traffic_type_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_traffic_type_distribution.png')
     plt.close()
     click.echo("Traffic Type Distrubution plots Complete!")
 
@@ -101,7 +109,7 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Revenue (Number of Purchases)')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_visitor_type_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_visitor_type_distribution.png')
     plt.close()
     click.echo("Visitor Type Distrubution plots Complete!")
 
@@ -118,17 +126,18 @@ def visualize_data(cleaned_data_file, figure_prefix):
     axs[1].set_ylabel('Revenue (Number of Purchases)')
     axs[1].grid(axis='y')
     plt.tight_layout()
-    plt.savefig(f'{figure_prefix}_weekend_distribution.png')
+    plt.savefig(img_dir + f'{figure_prefix}_weekend_distribution.png')
     plt.close()
     click.echo("Weekend Distrubution plots Complete!")
 
     # Correlation Matrix of Numerical Features
+
     numerical_features = data.select_dtypes(include=['int64', 'float64'])
     corr_matrix = numerical_features.corr()
     plt.figure(figsize=(10, 8))
     sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm')
     plt.title('Correlation Matrix of Numerical Features')
-    plt.savefig(f'{figure_prefix}_correlation_matrix.png')
+    plt.savefig(img_dir + f'{figure_prefix}_correlation_matrix.png')
     plt.close()
     click.echo("Correlation Matrix of Numerical Features plots Complete!")
 
