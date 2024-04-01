@@ -1,6 +1,10 @@
 import numpy as np
 import pytest
-from performance_metrics import calculate_performance_metrics
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+from src.function_classification_metrics import calculate_classification_metrics
 
 def test_perfect_predictions():
     y_true = np.array([0, 1, 2])
