@@ -44,7 +44,7 @@ results/model_comparison_results.csv results/feature_importances.csv results/ran
 # Generate EDA figures
 img/figure_browser_distribution.png img/figure_correlation_matrix.png img/figure_month_distribution.png img/figure_region_distribution.png img/figure_revenue_class_distribution.png img/figure_traffic_type_distribution.png img/figure_visitor_type_distribution.png img/figure_weekend_distribution.png:
 	mkdir -p img
-	python src/eda_figures.py data/cleaned_features.csv data/cleaned_targets.csv figure
+	python src/eda_figures.py data/cleaned_features.csv data/cleaned_targets.csv img/figure
 
 # Render Quarto reports
 reports/shopper_intention_analysis_report.html reports/shopper_intention_analysis_report.pdf: src/analysis.py

@@ -67,3 +67,16 @@ make clean-all
 make clean-all
 make all
 exit
+cd src
+python eda_figures.py ../data/cleaned_features.csv ../data/cleaned_targets.csv ../img/figure
+cd ..
+make clean-all
+make all
+make clean-all
+make all
+make clean-all
+make all
+cd reports 
+quarto render reports/shopper_intention_analysis_report.qmd --to html
+quarto render shopper_intention_analysis_report.qmd --to html
+exit
