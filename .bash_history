@@ -18,3 +18,4 @@ python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test
 python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test_data.csv ../results
 python analysis.py ../data/preprocessed_train_data.csv ../data/preprocessed_test_data.csv ../results
 exit
+exit
