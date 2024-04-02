@@ -7,7 +7,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.function_preprocessing import preprocessing
 
-def test_run_preprocessing():
+def test_preprocessing():
     # Create sample data
     X_train = pd.DataFrame({
         'Administrative': [1, 2, 3],
@@ -21,7 +21,7 @@ def test_run_preprocessing():
         'PageValues': [0.7, 0.8, 0.9],
         'SpecialDay': [0.0, 0.1, 0.2],
         'Month': ['Jan', 'Feb', 'Mar'],
-        'VisitorType': ['New', 'Returning', 'New'],
+        'VisitorType': ['New_Visitor', 'Returning_Visitor', 'New_Visitor'],
         'Browser': [1, 2, 3],
         'Region': [1, 2, 3],
         'TrafficType': [1, 2, 3],
@@ -41,7 +41,7 @@ def test_run_preprocessing():
         'PageValues': [1.0, 1.1, 1.2],
         'SpecialDay': [0.3, 0.4, 0.5],
         'Month': ['Apr', 'May', 'Jun'],
-        'VisitorType': ['Returning', 'New', 'Returning'],
+        'VisitorType': ['Returning_Visitor', 'New_Visitor', 'Returning_Visitor'],
         'Browser': [4, 5, 6],
         'Region': [4, 5, 6],
         'TrafficType': [4, 5, 6],
@@ -52,7 +52,6 @@ def test_run_preprocessing():
     y_train = pd.DataFrame({'Revenue': [0, 1, 0]})
     y_test = pd.DataFrame({'Revenue': [1, 0, 1]})
 
-    # Run preprocessing
     train_transformed, test_transformed = preprocessing(X_train, X_test, y_train, y_test)
 
     # Check if the transformed data has the expected shape
