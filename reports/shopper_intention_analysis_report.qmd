@@ -139,18 +139,23 @@ Let us examine the distribution of certain categorical features to better unders
 * distribution of Revenue=True(1) across the different classes for a given feature
 
 ![Distribution of Sessions by Month](../img/eda__month_distribution.png){#fig-month-distribution width=80%}
+
 @fig-month-distribution shows that most of the sessions occur during the months May, November, March, and December while successful purchases occur mostly in the months of May, November and December. 
 
 ![Distribution of Sessions by Browser](../img/eda__browser_distribution.png){#fig-browser-distribution width=80%}
+
 @fig-browser-distribution shows that the majority of sessions are hosted on Browser class 2 and 1, whith the most number of purchases being made in browser class 2 and 1. 
 
 ![Distribution of Sessions by Region](../img/eda__region_distribution.png){#fig-region-distribution width=80%}
+
 @fig-region-distribution shows that the majority of sessions are hosted in regions 2, 1, and 3, which are also the regions with the most number of purchases.
 
 ![Distribution of Sessions by Visitor Type](../img/eda__visitor_type_distribution.png){#fig-visitor-distribution width=80%}
+
 @fig-visitor-distribution shows that the majority of sessions are from Returning visitors, which also represent the majority of purchases. This indicates that a Revenue = True is more likely when the user accessing the session has already visited and viewed the product, compared to first-time visitors.
 
 ![Distribution of Sessions by Weekend](../img/eda__weekend_distribution.png){#fig-weekend-distribution width=80%}
+
 @fig-weekend-distribution shows that the majority of sessions and the majority of purchases occur on weekdays as opposed to weekends. 
 
 #### Continuous numerical Features: Correlation with Revenue
@@ -174,6 +179,7 @@ Given that we want to examine all explanatory variables, we will first examine t
 #### 1. Train-Test Split
 
 A 70-30 split of our data has already been applied after loading and cleaning the data, before performing any EDA: 
+
 * 70% split for the training subset
 
 * 30% split for the testing subset
@@ -188,7 +194,8 @@ Given that we have different data types, we will apply some transformations to e
 
 Our target feature, Revenue, is binary so the models chosen will be trained to perform binary classification:
 
-**3.1 Dummy Classifier Model**: 
+**3.1 Dummy Classifier Model:**
+
 The Dummy Classifier Model makes predictions that ignore the input features, in other words, it does not attempt to 'learn' anything from the data. This classifier serves as a baseline to compare to the following models. 
 
 **3.2 kNN:** 
@@ -259,13 +266,19 @@ The summary of preprocessing transformations and the explanation behind each is 
 For this analysis, we defined a custom function that returns the mean and standard deviation cross validation scores. For each model, a pipeline was defined to first preprocess the training split of the data, then pass it through the model to be fit. The documentation of the function is as follows:
 
 **Parameters**
+
 * model :scikit-learn model
+
 * X_train : numpy array or pandas DataFrame
+
     * X in the training data
+
 * y_train :
+
     * y in the training data
 
 **Returns**
+
 * pandas Series with mean scores from cross_validation
 
 **Note**: this function definition is taken from CPSC330 2023W1 Course Notes
@@ -316,11 +329,17 @@ feature_importance
 ```
 
 From @tbl-feature-importance, we can see ranked importance scores, which indicate how much each feature is contributing to the Radnom Forests model. For categorical models which have been one-hot encoded, such as Month, the label is Month_[insert mont] for example Month_June. The values in this column represent the relative importance of each feature, where a higher score indicates more importance. From this ranking, we can infer that the following features had high relative importance:
+
 * PageValues
+
 * ProductRelated_Duration 
+
 * ExitRates
+
 * ProductRelated
+
 * Administrative_Duration
+
 
 The rest of the variables gradually decrease, however it is worth nothing that the variable PageValues is significantly higher than all other features (by approximately 4 times), implying this is one of the most influential features when it comes to predicting user purchasing intent (represented by variable Revenue).
 
@@ -333,9 +352,13 @@ These findings address the following part of our question: Using all variables p
 To evaluate the performance of our chosen model, random forests, on the test data, we will examine the following metrics: Precision, Recall, Accuracy, and F1 Score.
 
 **Breakdwon of Metrics**
+
 * **Precision**: the ratio of correctly predicted positive cases to the total number of predicted positive cases (true positives and false positives)
+
 * **Recall**: the ratio of correctly predicted positive observations to the total number of positive cases (true positives and false negatives)
+
 * **Accuracy**: the ratio of correctly predicted observations to the total number of observations. This metric may be misleading if classes are imbalanced
+
 * **F1 Score**: the weighted average of precision and recall, this is a better measure for imbalanced classes compared to accuracy
 
 These scores were obtained using True Negative, True Positive, Fasle Negative, False Negative scores obtained by the confusion matrix of our random forests model, @fig-confusion-matrix.
@@ -366,6 +389,7 @@ Restating the question:
 **Question**: Using all variables provided in the dataset, which group of explanatory variables form the best prediction for the user's purchase intent?
 
 Our findings in regard to the question be summed up into 2 main points:
+
 - When it comes to the application of ML to predict online consumer behaviour given all the explanatory variables in our dataset, the random forests model performs the best and produced the best results in terms of time and train/test scoring. The random forests model performed the best in terms of fit/score time and train/test score out of: a dummy model, SVM RBF model, kNN model and Random Forest Classifier.
 
 - The following group of explanatory variables have the greatest feature importance in our chosen model when predicting the target feature, Revenue:
