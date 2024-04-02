@@ -23,7 +23,7 @@ def setup_csv_files():
     if os.path.exists(test_output_path):
         os.remove(test_output_path)
 
-# Test if the function preprocesses and saves output correctly
+# Test case to check if the function preprocesses and saves output correctly
 def test_preprocess_data_functionality(setup_csv_files):
     x_train_path, x_test_path, y_train_path, y_test_path, train_output_path, test_output_path = setup_csv_files
 
@@ -46,7 +46,7 @@ def test_preprocess_data_functionality(setup_csv_files):
         assert any(col.startswith(column) for col in test_output.columns)
 
 
-# Test handling of non-existing files
+# Test case of handling non-existing files
 def test_non_existing_files():
     runner = CliRunner()
     result = runner.invoke(preprocess_data, ["non_existing_x_train.csv", "non_existing_x_test.csv", "non_existing_y_train.csv", "non_existing_y_test.csv", "train_output.csv", "test_output.csv"])
