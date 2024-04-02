@@ -1,57 +1,53 @@
-import pytest
+import os
 import pandas as pd
+import numpy as np
 from click.testing import CliRunner
-from src.preprocessing import preprocess_data  
+import pytest
+from src.preprocessing import preprocess_data 
 
 @pytest.fixture
-def input_data():
-    """Fixture to create and clean up temporary input data files."""
-    # Create temporary CSV files for testing
-    x_train = pd.DataFrame({
-        'Administrative': [0, 2], 'Administrative_Duration': [0.0, 80.0],
-        'Informational': [0, 0], 'Informational_Duration': [0.0, 0.0],
-        'ProductRelated': [1, 2], 'ProductRelated_Duration': [0.0, 64.0],
-        'BounceRates': [0.2, 0.0], 'ExitRates': [0.2, 0.05],
-        'PageValues': [0.0, 0.0], 'SpecialDay': [0.0, 0.0],
-        'Month': ['Feb', 'March'], 'VisitorType': ['Returning_Visitor', 'New_Visitor'],
-        'Weekend': [False, True], 'Browser': [1, 2], 'Region': [1, 3],
-        'TrafficType': [1, 4], 'OperatingSystems': [1, 2]
+def setup_csv_files():
+    # path directory and setup
+    x_train_path = "data/x_train.csv" 
+    y_train_path = "data/y_train.csv"
+    x_test_path = "data/x_test.csv"
+    y_test_path = "data/y_test.csv"
+    train_output_path = "data/preprocessed_train_data.csv"
+    test_output_path = "data/preprocessed_test_data.csv"
 
-    })  
+    yield x_train_path, x_test_path, y_train_path, y_test_path, train_output_path, test_output_path
 
-    # ,PageValues,SpecialDay,Month,OperatingSystems,Browser,Region,TrafficType,VisitorType,Weekend
 
-    x_test = pd.DataFrame({
-        'Administrative': [0, 2], 'Administrative_Duration': [0.0, 80.0],
-        'Informational': [0, 0], 'Informational_Duration': [0.0, 0.0],
-        'ProductRelated': [1, 2], 'ProductRelated_Duration': [0.0, 64.0],
-        'BounceRates': [0.2, 0.0], 'ExitRates': [0.2, 0.05],
-        'PageValues': [0.0, 0.0], 'SpecialDay': [0.0, 0.0],
-        'Month': ['Feb', 'March'], 'VisitorType': ['Returning_Visitor', 'New_Visitor'],
-        'Weekend': [False, True], 'Browser': [1, 2], 'Region': [1, 3],
-        'TrafficType': [1, 4], 'OperatingSystems': [1, 2]
+    if os.path.exists(train_output_path):
+        os.remove(train_output_path)
+    if os.path.exists(test_output_path):
+        os.remove(test_output_path)
 
-    })  
+# Test if the function preprocesses and saves output correctly
+def test_preprocess_data_functionality(setup_csv_files):
+    x_train_path, x_test_path, y_train_path, y_test_path, train_output_path, test_output_path = setup_csv_files
 
-    y_train = pd.DataFrame({'Revenue' : [0, 1]})
-    y_test = pd.DataFrame({'Revenue' : [1, 1]})
-
-    x_train.to_csv("x_train.csv", index=False)
-    x_test.to_csv("x_test.csv", index=False)
-    y_train.to_csv("y_train.csv", index=False)
-    y_test.to_csv("y_test.csv", index=False)
-    yield "x_train.csv", "x_test.csv", "y_train.csv", "y_test.csv"
-    # Cleanup
-    os.remove("x_train.csv")
-    os.remove("x_test.csv")
-    os.remove("y_train.csv")
-    os.remove("y_test.csv")
-
-def test_file_loading(input_data):
-    """Test that input files are correctly loaded."""
     runner = CliRunner()
-    result = runner.invoke(preprocess_data, [*input_data, 'train_output.csv', 'test_output.csv'])
+    result = runner.invoke(preprocess_data, [x_train_path, x_test_path, y_train_path, y_test_path, train_output_path, test_output_path])
+    
     assert result.exit_code == 0
-    assert "Preprocessed data saved" in result.output
-    # Further checks can be added to ensure the data was loaded and processed
+    assert os.path.exists(train_output_path) and os.path.exists(test_output_path)
 
+    # Load output files and check if they have the expected columns
+    train_output = pd.read_csv(train_output_path)
+    test_output = pd.read_csv(test_output_path)
+
+    expected_columns = ['Administrative', 'Administrative_Duration', 'Informational',
+                        'Informational_Duration', 'ProductRelated', 'ProductRelated_Duration',
+                        'BounceRates', 'ExitRates', 'PageValues', 'SpecialDay',
+                        'Weekend', 'Browser', 'Region', 'TrafficType', 'OperatingSystems']
+    for column in expected_columns:
+        assert any(col.startswith(column) for col in train_output.columns)
+        assert any(col.startswith(column) for col in test_output.columns)
+
+
+# Test handling of non-existing files
+def test_non_existing_files():
+    runner = CliRunner()
+    result = runner.invoke(preprocess_data, ["non_existing_x_train.csv", "non_existing_x_test.csv", "non_existing_y_train.csv", "non_existing_y_test.csv", "train_output.csv", "test_output.csv"])
+    assert result.exit_code != 0
