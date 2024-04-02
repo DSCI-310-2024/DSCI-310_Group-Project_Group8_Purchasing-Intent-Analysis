@@ -1,7 +1,7 @@
 import pytest
 import pandas as pd
 from click.testing import CliRunner
-from your_script import preprocess_data  # Ensure your script is named or adjust this import accordingly.
+from src.preprocessing import preprocess_data  
 
 @pytest.fixture
 def input_data():
