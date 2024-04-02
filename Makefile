@@ -1,7 +1,15 @@
 # Makefile
 
 # Main target
-all: reports/shopper_intention_analysis_report.html
+# all: reports/shopper_intention_analysis_report.html
+all:data/online_shoppers_intention.csv \
+	data/cleaned_features.csv data/cleaned_targets.csv \
+	data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv \
+	data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv \
+	data/preprocessed_train_data.csv data/preprocessed_test_data.csv \
+	eda_figures \
+	results/model_comparison_results.csv results/random_forest_confusion_matrix.png\
+	reports/shopper_intention_analysis_report.html
 
 # read data
 DATASET_ID = 468
