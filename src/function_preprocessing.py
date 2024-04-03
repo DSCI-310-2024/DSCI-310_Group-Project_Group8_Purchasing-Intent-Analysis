@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-def preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features):
+def numerical_categorical_preprocess(X_train, X_test, y_train, y_test, numeric_features, categorical_features):
     """
     Applies preprocessing transformations to the data, including scaling, encoding, and passing through features as specified.
     This function requires target data to be provided and includes it in the output DataFrames.
@@ -14,8 +14,7 @@ def preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorica
     - y_test: DataFrame, testing target data
     - numeric_features: list, names of numeric features to scale
     - categorical_features: list, names of categorical features to encode
-    - binary_features: list, names of binary features to encode
-    - passthrough_features: list, names of features to pass through without transformation
+    
     
     Returns:
     - Tuple containing preprocessed training and testing DataFrames including target data, and transformed column names
@@ -24,15 +23,12 @@ def preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorica
     # Setup transformers
     numeric_transformer = StandardScaler()
     categorical_transformer = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
-    binary_transformer = OneHotEncoder(drop='if_binary', dtype=int)
     
     # Define the preprocessor
     preprocessor = ColumnTransformer(
         transformers=[
             ('numeric', numeric_transformer, numeric_features),
             ('categorical', categorical_transformer, categorical_features),
-            ('binary', binary_transformer, binary_features),
-            ('passthrough', 'passthrough', passthrough_features),
         ]
     )
     
@@ -47,8 +43,16 @@ def preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorica
     X_train_transformed_df = pd.DataFrame(X_train_transformed, columns=transformed_columns)
     X_test_transformed_df = pd.DataFrame(X_test_transformed, columns=transformed_columns)
     
-    # Concatenate transformed features with target data
-    train_transformed = pd.concat([X_train_transformed_df, y_train.reset_index(drop=True)], axis=1)
-    test_transformed = pd.concat([X_test_transformed_df, y_test.reset_index(drop=True)], axis=1)
+    if y_train is not None:
+        y_train = y_train.reset_index(drop=True)
+        train_transformed = pd.concat([X_train_transformed_df, y_train], axis=1)
+    else:
+        train_transformed = X_train_transformed_df
+
+    if y_test is not None:
+        y_test = y_test.reset_index(drop=True)
+        test_transformed = pd.concat([X_test_transformed_df, y_test], axis=1)
+    else:
+        test_transformed = X_test_transformed_df
 
     return train_transformed, test_transformed, transformed_columns

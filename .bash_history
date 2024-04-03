@@ -44,3 +44,19 @@ pytest test_preprocessing.py
 pytest test_preprocessing.py 
 exit 
 exit
+cd tests 
+pytest test_preprocessing.py
+pytest test_preprocessing.py
+pytest test_preprocessing.py
+pytest test_preprocessing.py 
+pytest test_preprocessing.py
+pytest test_preprocessing.py 
+pytest test_preprocessing.py
+pytest test_preprocessing.py
+pytest test_preprocessing.py 
+pytest test_preprocessing.py 
+python test_preprocessing.py 
+pytest test_preprocessing.py 
+pytest test_preprocessing.py 
+pytest test_preprocessing.py 
+exit 
