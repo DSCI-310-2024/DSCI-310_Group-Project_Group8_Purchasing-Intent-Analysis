@@ -40,18 +40,18 @@ def model_cross_validation(preprocessed_training_data, preprocessed_testing_data
 
     # Dummy Classifier
     dummy = DummyClassifier(strategy='most_frequent')
-    results_dict["dummy"] = mean_std_cross_val_scores(dummy, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["dummy"] = mean_std_cross_val_scores(dummy, X_train, y_train, cv=5, return_train_score=True)
     
     # kNN Classifier
     knn = KNeighborsClassifier(n_neighbors=k)
-    results_dict["knn"] = mean_std_cross_val_scores(knn, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["knn"] = mean_std_cross_val_scores(knn, X_train, y_train, cv=5, return_train_score=True)
 
     # SVM Classifier
     svm = SVC(gamma=gamma)
-    results_dict["SVM"] = mean_std_cross_val_scores(svm, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["SVM"] = mean_std_cross_val_scores(svm, X_train, y_train, cv=5, return_train_score=True)
 
     # Random Forest Classifier
     random_forest = RandomForestClassifier(n_estimators=50, max_depth=50, random_state=123)
-    results_dict["random_forest"] = mean_std_cross_val_scores(random_forest, X_train, y_train, cv=10, return_train_score=True)
+    results_dict["random_forest"] = mean_std_cross_val_scores(random_forest, X_train, y_train, cv=5, return_train_score=True)
 
     return results_dict
