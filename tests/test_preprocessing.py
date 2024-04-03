@@ -53,7 +53,7 @@ def sample_data():
 
     return X_train, X_test, y_train, y_test, numeric_features, categorical_features
 
-def test_shapes(sample_data):
+def test_shape(sample_data):
     X_train, X_test, y_train, y_test, numeric_features, categorical_features = sample_data
     train_transformed, test_transformed, _ = numerical_categorical_preprocess(X_train, X_test, y_train, y_test, numeric_features, categorical_features)
     

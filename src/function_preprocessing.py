@@ -20,11 +20,11 @@ def numerical_categorical_preprocess(X_train, X_test, y_train, y_test, numeric_f
     - Tuple containing preprocessed training and testing DataFrames including target data, and transformed column names
     """
     
-    # Setup transformers
+    
     numeric_transformer = StandardScaler()
     categorical_transformer = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
     
-    # Define the preprocessor
+    # Defining preprocessor
     preprocessor = ColumnTransformer(
         transformers=[
             ('numeric', numeric_transformer, numeric_features),
@@ -32,14 +32,14 @@ def numerical_categorical_preprocess(X_train, X_test, y_train, y_test, numeric_f
         ]
     )
     
-    # Apply transformations
+    # Apply preprocesor on train and test data
     X_train_transformed = preprocessor.fit_transform(X_train)
     X_test_transformed = preprocessor.transform(X_test)
     
-    # Retrieve transformed column names for future reference
+    # Retrieve transformed column names 
     transformed_columns = preprocessor.get_feature_names_out()
     
-    # Reconstruct DataFrames with transformed data and target columns
+    # Reconstruct df with transformed data and target columns
     X_train_transformed_df = pd.DataFrame(X_train_transformed, columns=transformed_columns)
     X_test_transformed_df = pd.DataFrame(X_test_transformed, columns=transformed_columns)
     
