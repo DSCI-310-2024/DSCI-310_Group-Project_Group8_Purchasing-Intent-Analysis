@@ -1,16 +1,24 @@
 # Makefile
 
 # Main target
-all: reports/shopper_intention_analysis_report.html
+# all: reports/shopper_intention_analysis_report.html
+all:data/online_shoppers_intention.csv \
+	data/cleaned_features.csv data/cleaned_targets.csv \
+	data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv \
+	data/preprocessed_train_data.csv data/preprocessed_test_data.csv \
+	eda_figures \
+	results/model_comparison_results.csv results/random_forest_confusion_matrix.png\
+	reports/shopper_intention_analysis_report.html
 
 # read data
 DATASET_ID = 468
 data/online_shoppers_intention.csv: src/read_data.py
 	python src/read_data.py $(DATASET_ID) data/raw_features.csv data/raw_targets.csv
 
+
 # clean data
 data/cleaned_features.csv data/cleaned_targets.csv: src/cleaning.py data/raw_features.csv data/raw_targets.csv
-	python src/cleaning.py data/features.csv data/targets.csv data/cleaned_features.csv data/cleaned_targets.csv
+	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned_features.csv data/cleaned_targets.csv
 
 # data_split
 data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned_features.csv data/cleaned_targets.csv
@@ -19,18 +27,18 @@ data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned_
 # pre-process data
 data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
 	python src/preprocessing.py data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv data/preprocessed_train_data.csv data/preprocessed_test_data.csv
-	
+    
 # EDA figures
 .PHONY: eda_figures
 
-eda_figures: img/eda_revenue_class_distribution.png \
-			 img/eda_month_distribution.png \
-			 img/eda_browser_distribution.png \
-			 img/eda_region_distribution.png \
-			 img/eda_traffic_type_distribution.png \
-			 img/eda_visitor_type_distribution.png \
-			 img/eda_weekend_distribution.png \
-			 img/eda_correlation_matrix.png
+eda_figures:img/eda_revenue_class_distribution.png \
+			img/eda_month_distribution.png \
+			img/eda_browser_distribution.png \
+			img/eda_region_distribution.png \
+			img/eda_traffic_type_distribution.png \
+			img/eda_visitor_type_distribution.png \
+			img/eda_weekend_distribution.png \
+			img/eda_correlation_matrix.png
 
 img/eda_revenue_class_distribution.png \
 img/eda_month_distribution.png \
