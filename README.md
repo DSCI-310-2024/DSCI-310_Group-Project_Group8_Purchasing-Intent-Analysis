@@ -65,6 +65,9 @@ OR
 - ``` matplotlib==3.8.2``` 
 - ```seaborn==0.13.2 ```
 - ```click==8.1.7```
+- ```pytest=8.1.1```
+- ```pyYAML=6.0.1```
+- ```tabulate=0.9.0```
 - ```ucimlrepo```
 
 # License Information
