@@ -39,3 +39,8 @@ make clean-all
 make all 
 *** make all
 make all
+cd tests 
+pytest test_preprocessing.py
+pytest test_preprocessing.py 
+exit 
+exit

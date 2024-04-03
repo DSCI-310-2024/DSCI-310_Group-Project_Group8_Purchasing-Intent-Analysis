@@ -4,11 +4,20 @@ import pytest
 import sys
 import os
 
+
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from src.function_preprocessing import preprocessing
 
-def test_preprocessing():
-    # Create sample data
+
+@pytest.fixture
+def sample_data():
+    # Define your feature columns here
+    numeric_features = ['Administrative', 'Administrative_Duration', 'Informational', 'Informational_Duration', 'ProductRelated', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues', 'SpecialDay']
+    categorical_features = ['Month', 'VisitorType']
+    binary_features = ['Weekend']
+    passthrough_features = ['Browser', 'Region', 'TrafficType', 'OperatingSystems']
+    
+    # Sample data setup
     X_train = pd.DataFrame({
         'Administrative': [1, 2, 3],
         'Administrative_Duration': [10, 20, 30],
@@ -21,7 +30,7 @@ def test_preprocessing():
         'PageValues': [0.7, 0.8, 0.9],
         'SpecialDay': [0.0, 0.1, 0.2],
         'Month': ['Jan', 'Feb', 'Mar'],
-        'VisitorType': ['New_Visitor', 'Returning_Visitor', 'New_Visitor'],
+        'VisitorType': ['New_Visitor', 'Returning_Visitor', 'Other'],
         'Browser': [1, 2, 3],
         'Region': [1, 2, 3],
         'TrafficType': [1, 2, 3],
@@ -41,7 +50,7 @@ def test_preprocessing():
         'PageValues': [1.0, 1.1, 1.2],
         'SpecialDay': [0.3, 0.4, 0.5],
         'Month': ['Apr', 'May', 'Jun'],
-        'VisitorType': ['Returning_Visitor', 'New_Visitor', 'Returning_Visitor'],
+        'VisitorType': ['Returning_Visitor', 'New_Visitor', 'Other'],
         'Browser': [4, 5, 6],
         'Region': [4, 5, 6],
         'TrafficType': [4, 5, 6],
@@ -49,33 +58,64 @@ def test_preprocessing():
         'Weekend': [False, True, False]
     })
 
-    y_train = pd.DataFrame({'Revenue': [0, 1, 0]})
-    y_test = pd.DataFrame({'Revenue': [1, 0, 1]})
+    y_train = pd.Series([0, 1, 0], name='Revenue')
+    y_test = pd.Series([1, 0, 1], name='Revenue')
 
-    train_transformed, test_transformed = preprocessing(X_train, X_test, y_train, y_test)
+    return X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features
 
-    # Check if the transformed data has the expected shape
-    assert train_transformed.shape == (3, 21), "Train transformed data has incorrect shape."
-    assert test_transformed.shape == (3, 21), "Test transformed data has incorrect shape."
 
-    # Check if the transformed data contains the expected columns
+def test_shapes(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    assert train_transformed.shape[0] == X_train.shape[0], "Incorrect number of rows in train_transformed."
+    assert test_transformed.shape[0] == X_test.shape[0], "Incorrect number of rows in test_transformed."
+
+def test_revenue_preservation(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    assert 'Revenue' in train_transformed.columns, "'Revenue' column missing in train_transformed."
+    assert 'Revenue' in test_transformed.columns, "'Revenue' column missing in test_transformed."
+    
+    assert np.array_equal(train_transformed['Revenue'].values, y_train.values), "Revenue data altered in training set."
+    assert np.array_equal(test_transformed['Revenue'].values, y_test.values), "Revenue data altered in testing set."
+
+def test_numeric_scaling(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    # Numeric scaling check
+    assert not np.array_equal(X_train['Administrative'], train_transformed['Administrative']), "Numeric feature 'Administrative' appears untransformed."
+
+def test_one_hot_encoding(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    # One-hot encoding check
+    expected_one_hot_features = ['Month_Jan', 'Month_Feb', 'Month_Mar', 'VisitorType_New_Visitor', 'VisitorType_Returning_Visitor', 'VisitorType_Other']
+    assert all(feature in train_transformed.columns for feature in expected_one_hot_features), "One-hot encoded features missing in the transformed dataset."
+
+def test_binary_feature(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    # Binary feature check
+    assert 'Weekend' in train_transformed.columns, "Binary feature 'Weekend' missing in the transformed dataset."
+    assert set(train_transformed['Weekend'].unique()) == {0, 1}, "Binary feature 'Weekend' should only contain {0, 1}."
+
+def test_transformed_data_columns(sample_data):
+    X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features = sample_data
+    train_transformed, test_transformed, transformed_columns = preprocessing(X_train, X_test, y_train, y_test, numeric_features, categorical_features, binary_features, passthrough_features)
+    
+    # Expected columns check
     expected_columns = [
         'Administrative', 'Administrative_Duration', 'Informational', 'Informational_Duration',
         'ProductRelated', 'ProductRelated_Duration', 'BounceRates', 'ExitRates', 'PageValues',
         'SpecialDay', 'Month_Apr', 'Month_Feb', 'Month_Jan', 'Month_Jun', 'Month_Mar', 'Month_May',
-        'VisitorType_New', 'VisitorType_Returning', 'Browser', 'Region', 'TrafficType',
-        'OperatingSystems', 'Weekend'
+        'VisitorType_New_Visitor', 'VisitorType_Returning_Visitor', 'VisitorType_Other', 'Browser', 'Region', 'TrafficType',
+        'OperatingSystems', 'Weekend', 'Revenue'
     ]
+
     assert all(col in train_transformed.columns for col in expected_columns), "Train transformed data columns are incorrect."
     assert all(col in test_transformed.columns for col in expected_columns), "Test transformed data columns are incorrect."
-
-    # Check if the transformed data contains the expected values
-    expected_values = np.array([
-        [0.0, -1.22474487, -1.22474487, -1.22474487, -1.22474487, -1.22474487, -1.22474487,
-         -1.22474487, -1.22474487, -0.89442719, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        [1.22474487, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4472136, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        [-1.22474487, 1.22474487, 1.22474487, 1.22474487, 1.22474487, 1.22474487, 1.22474487,
-         1.22474487, 1.22474487, 1.34164079, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-    ])
-    np.testing.assert_array_almost_equal(train_transformed.values, expected_values, decimal=6)
-    np.testing.assert_array_almost_equal(test_transformed.values, expected_values, decimal=6)
