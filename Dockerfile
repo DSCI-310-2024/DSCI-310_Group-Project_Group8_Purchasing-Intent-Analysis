@@ -6,7 +6,8 @@ RUN conda install --yes \
     click=8.1.7 \
     pyYAML=6.0.1 \
     tabulate=0.9.0 \
-    click=8.1.7
+    click=8.1.7 \
+    pytest=8.1.1
 
 
 # Quarto Installation
