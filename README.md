@@ -1,4 +1,4 @@
-# DSCI-310_GroupProject-Group-8_Online-Shopper-Intention
+# Predict and Classify Online Shopper Intention 
 ****
 
 # Contributers/Authors
