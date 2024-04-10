@@ -1,5 +1,5 @@
 ---
-title: "DSCI 310 Group 8: Online Shopper"
+title: "DSCI 310 Group 8: Predicting Online Shopper Purchasing Intention"
 author: "Calvin Choi, Nour Abdelfattah, Sai Pusuluri, Sana Shams"
 format: 
     html:

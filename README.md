@@ -1,4 +1,4 @@
-# Predict and Classify Online Shopper Intention 
+# Predicting Online Shopper Purchasing Intention 
 ****
 
 # Contributers/Authors
