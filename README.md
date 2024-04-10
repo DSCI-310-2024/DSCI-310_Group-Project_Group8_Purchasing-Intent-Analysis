@@ -25,7 +25,7 @@ To replicate our analysis on your machine:
 3. Running the analysis
    * Open the repository folder on your IDE (may vary depending on IDE)
    * Navigate to the analysis file by opening the ``` project ``` folder, then open the file ``` Milestone1.ipynb ```
-   * Make sure the kernel in your IDE is set to ProjectMilestone1_env.
+   * Make sure the kernel in your IDE is set to project_env.
 4. Run the report from top to bottom in your IDE.
 5. To deactivate the virtual environment, run the command ``` conda deactivate ```
 
