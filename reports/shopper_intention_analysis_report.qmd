@@ -6,10 +6,6 @@ format:
         toc: true
         toc-depth: 2
         embed-resources: true
-    # pdf:
-    #     toc: true
-    #     toc-depth: 2
-    #     fig-pos: "H"
 bibliography: references.bib
 execute: 
   echo: false
