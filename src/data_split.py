@@ -1,35 +1,29 @@
+#author: Calvin Choi, Nour Abdelfattah, Sana Shams, Sai Pusuluri
+#date: 2024-04-09
+
+"""
+Splits cleaned feature and target datasets into training and testing sets and saves those sets to CSV files.
+
+Usage: 
+    data_split.py <cleaned_x_file> <cleaned_y_file> <x_train_output_path> <x_test_output_path> <y_train_output_path> <y_test_output_path> [--test_size=<test_size>] [--random_state=<random_state>]
+
+Arguments:
+    cleaned_x_file -- Path to the cleaned features CSV file.
+    cleaned_y_file -- Path to the cleaned targets CSV file.
+    x_train_output_path -- Path to save the training features CSV file.
+    x_test_output_path -- Path to save the testing features CSV file.
+    y_train_output_path -- Path to save the training targets CSV file.
+    y_test_output_path  -- Path to save the testing targets CSV file.
+
+Options:
+--test_size=<test_size>         The proportion of the dataset to include in the test split.
+--random_state=<random_state>   The seed used by the random number generator. 
+
+"""
+
 import pandas as pd
 import click
 from sklearn.model_selection import train_test_split
-
-# @click.command()
-# @click.argument('clean_data', type=str)
-# @click.argument('output_folder', type=str)
-# def data_split_train_test(clean_data, output_folder):
-#     """
-#     Splits preprocessed data into train and test sets and saves them to the output folder.
-#     """
-#     # Read preprocessed data from the CSV file
-#     data = pd.read_csv(clean_data)
-    
-#     # Define the target column
-#     target = 'Revenue'
-    
-#     # Split the data into train and test sets
-#     train_df, test_df = train_test_split(data, test_size=0.3, random_state=123)
-    
-#     # Create file paths for train and test data
-#     train_file = f"{output_folder}/train_data.csv"
-#     test_file = f"{output_folder}/test_data.csv"
-    
-#     # Save the train and test sets to CSV files
-#     train_df.to_csv(train_file, index=False)
-#     test_df.to_csv(test_file, index=False)
-    
-#     click.echo(f"Train and test sets saved to {output_folder}")
-
-# if __name__ == '__main__':
-#     data_split_train_test()
 
 @click.command()
 @click.argument('cleaned_x_file', type=str)

@@ -1,3 +1,18 @@
+#author: Calvin Choi, Nour Abdelfattah, Sana Shams, Sai Pusuluri
+#date: 2024-04-09
+
+"""
+Generates various data visualizations for a given dataset, including distributions and correlations, and saves them with a specified prefix.
+
+Usage:
+    eda_figures.py <cleaned_x_file> <cleaned_y_file> <figure_prefix>
+
+Arguments:
+    cleaned_x_file -- The file path for the cleaned features CSV.
+    cleaned_y_file -- The file path for the cleaned targets CSV.
+    figure_prefix -- The prefix for saved figure file names.
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns

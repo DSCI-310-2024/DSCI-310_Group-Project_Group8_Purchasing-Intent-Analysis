@@ -1,3 +1,20 @@
+#author: Calvin Choi, Nour Abdelfattah, Sana Shams, Sai Pusuluri
+#date: 2024-04-09
+
+"""
+Cleans data by removing duplicates from the provided CSV files of features and targets,
+then saves the cleaned data back to new CSV files.
+
+Usage: 
+    cleaning.py <x_data> <y_data> <cleaned_x_file> <cleaned_y_file>
+
+Arguments:
+    x_data -- Path to the CSV file containing features.
+    y_data -- Path to the CSV file containing targets.
+    cleaned_x_file -- Path where the cleaned features CSV file will be saved.
+    cleaned_y_file -- Path where the cleaned targets CSV file will be saved.
+"""
+
 import pandas as pd
 import click
 
@@ -48,43 +65,3 @@ def clean_data(x_data, y_data, cleaned_x_file, cleaned_y_file):
 if __name__ == '__main__':
     clean_data()
 
-# @click.command()
-# @click.argument('input_file', type=str)
-# @click.argument('processed_file', type=str)
-# def clean_data(input_file, processed_file):
-#     # Read in data from the CSV file
-#     data = pd.read_csv(input_file)
-    
-#     # Data cleaning
-#     # drop null
-#     if data.isnull().sum().any():
-#         null_values = data.isnull().sum()
-#         click.echo(f"Null values before cleaning:\n{null_values}")
-#         data.dropna(inplace = True)
-#         click.echo(f"Null values after cleaning:\n{data.isnull().sum()}")
-
-#     # drop duplicates
-#     if data.duplicated().any():
-#         duplicates = data[data.duplicated()]
-#         click.echo(f"Duplicates before cleaning:\n{duplicates}")
-
-#         # drop duplicates
-#         data.drop_duplicates(inplace=True)
-#         click.echo(f"Duplicates after cleaning: \n{data[data.duplicated()]}")
-
-#         # Drop "OperatingSystems" column as mentioned in ipynb file
-#         data.drop(columns = ["OperatingSystems"], inplace = True)
-#         click.echo(f"dropped OperatingSystems Column")
-
-#     else :
-#         click.echo(f"No duplicates found!")
-#         data.drop(columns = ["OperatingSystems"])
-#         click.echo(f"dropped OperatingSystems Column")
-
-#     # Save the processed data to a new CSV file
-#     data.to_csv(processed_file, index=False)
-    
-#     click.echo("Data cleaned and saved successfully to {}".format(processed_file))
-
-# if __name__ == '__main__':
-#     clean_data()

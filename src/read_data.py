@@ -1,21 +1,22 @@
+#author: Calvin Choi, Nour Abdelfattah, Sana Shams, Sai Pusuluri
+#date: 2024-04-09
+
+"""
+This script fetches a dataset from the UCI Machine Learning Repository using its dataset ID,
+separates it into features and targets, and saves these components into separate CSV files.
+
+Usage: 
+    read_data.py --dataset_id=<dataset_id> --features_output_path=<features_output_path> --targets_output_path=<targets_output_path>
+
+Arguments:
+    dataset_id -- The unique numeric identifier for the dataset in the UCI repository.
+    features_output_path -- Local file path to save the features CSV.
+    targets_output_path -- Local file path to save the targets CSV.
+"""
+
 import pandas as pd 
 from ucimlrepo import fetch_ucirepo
 import click
-
-# @click.command()
-# @click.argument('input_url', type = str)
-# @click.argument('output_path', type = str)
-# def read_data(input_url, output_path): 
-#     #read in data from input URL
-#     data = pd.read_csv(input_url)
-
-#     #save data to output file 
-#     data.to_csv(output_path, index = False)
-
-#     click.echo("Data downloaded and saved successfully")
-
-# if __name__ == '__main__':
-#     read_data()
 
 @click.command()
 @click.argument('dataset_id', type=int)
