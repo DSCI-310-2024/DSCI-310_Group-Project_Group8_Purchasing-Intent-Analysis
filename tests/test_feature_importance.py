@@ -16,9 +16,10 @@ class DummyModel:
     def __init__(self, feature_importances):
         self.feature_importances_ = feature_importances
 
+# scenario where there are uniform feature importances
 def test_fitted_model_uniform_feature_importances():
-    # creating a dummy model with uniform feature importances
     feature_importances = np.array([1/3, 1/3, 1/3])
+    # creating a dummy model with uniform feature importances
     model = DummyModel(feature_importances)
     feature_names = ['feature_1', 'feature_2', 'feature_3']
     
@@ -32,7 +33,8 @@ def test_fitted_model_uniform_feature_importances():
     assert importances_df.shape[0] == 3, "DataFrame should have a row for each feature"
     # This check ensures that each feature's importance is approximately 1/3, since this is checking uniform case
     assert all(np.isclose(importances_df.iloc[:, 0], 1/3)), "All features should have equal importance"
-    
+
+# scenario where an unfitted model is given (need fitted model for feature importances)    
 def test_unfitted_model_error():
     model = RandomForestClassifier(random_state=42)
     feature_names = [f'feature_{i}' for i in range(5)]
@@ -40,6 +42,7 @@ def test_unfitted_model_error():
     with pytest.raises(ValueError):
         get_feature_importances(model, feature_names)
 
+# scenario where a non-tree-based model is give (need tree-based model for feature importances)
 def test_non_tree_based_model_error():
     model = LinearRegression()
     model.fit(np.array([[0], [1], [2]]), np.array([0, 1, 2]))  # just dummy fit here to avoid unfitted model error
@@ -48,12 +51,14 @@ def test_non_tree_based_model_error():
     with pytest.raises(ValueError):
         get_feature_importances(model, feature_names)
 
+# case where an invalid model, such as not a model but a string, is given for to extract feature importances
 def test_invalid_model_type_error():
     model = "Not a model"
     feature_names = ['feature_0']
     with pytest.raises(ValueError):  
         get_feature_importances(model, feature_names)
 
+# testing that the feature importances are sorted in descending order
 def test_feature_importances_sorted_correctly():
     feature_importances = np.array([0.1, 0.4, 0.2, 0.3])
     model = DummyModel(feature_importances)
@@ -63,6 +68,7 @@ def test_feature_importances_sorted_correctly():
     sorted_importances = np.sort(feature_importances)[::-1]  # sort in descending order
     assert np.array_equal(importances_df['Importance'], sorted_importances), "Importances should be sorted in descending order"
 
+# case where the feature names are not strings, but boolean, which should still pass
 def test_non_string_feature_names():
     feature_importances = np.array([0.5, 0.5])
     model = DummyModel(feature_importances)
@@ -71,6 +77,7 @@ def test_non_string_feature_names():
     
     assert list(importances_df.index) == feature_names, "dataFrame index should handle non-string feature names"
 
+# case where empty feature names are given (feature names are necessary, error should be generated)
 def test_empty_feature_names():
     model = DummyModel(np.array([]))
     feature_names = []
