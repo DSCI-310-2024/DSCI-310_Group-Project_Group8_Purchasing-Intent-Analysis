@@ -60,55 +60,18 @@ def analyze_data(preprocessed_train_data, preprocessed_test_data, output_path):
     results_df.to_csv(f"{output_path}/model_comparison_results.csv")
     click.echo("Model comparison results saved to results folder.")
 
-
-    # results_dict = {}
-
-    # # Dummy Classifier
-    # dummy = DummyClassifier(strategy='most_frequent')
-    # results_dict["dummy"] = mean_std_cross_val_scores(dummy, X_train, y_train, cv=10, return_train_score=True)
-
-    # # kNN Classifier
-    # best_k = 13
-    # knn = KNeighborsClassifier(n_neighbors=best_k)
-    # results_dict["knn"] = mean_std_cross_val_scores(knn, X_train, y_train, cv=10, return_train_score=True)
-
-    # # SVM Classifier
-    # svm = SVC(gamma=0.01)
-    # results_dict["SVM"] = mean_std_cross_val_scores(svm, X_train, y_train, cv=10, return_train_score=True)
-
-    # # Random Forest Classifier
-    # random_forest = RandomForestClassifier(n_estimators=50, max_depth=50, random_state=123)
-    # results_dict["random_forest"] = mean_std_cross_val_scores(random_forest, X_train, y_train, cv=10, return_train_score=True)
-
-    # # Comapring results across all models
-    # results_df = pd.DataFrame(results_dict).T
-    # results_df.to_csv(f"{output_path}/model_comparison_results.csv")
-    # click.echo("Model comparison results saved to results folder.")
-
-    # Feature Importance from Random Forest
-    # random_forest.fit(X_train, y_train)
-    # feature_importances = pd.Series(random_forest.feature_importances_, index=X_train.columns)
-    # feature_importances_sorted = feature_importances.sort_values(ascending=False)
-    # feature_importances_sorted.to_csv(f"{output_path}/feature_importances.csv")
-    # click.echo("Feature importances saved to results folder.")
-
     random_forest = RandomForestClassifier(n_estimators=50, max_depth=50, random_state=123)
     random_forest.fit(X_train, y_train)
 
-    # Feature Importance using imported function
-    feature_importances_df = get_feature_importances(random_forest, X_train.columns)
-    feature_importances_df.to_csv(f"{output_path}/feature_importances.csv")
-    click.echo("Feature importances saved to results folder.")
+    # # Feature Importance using imported function
+    # feature_importances_df = get_feature_importances(random_forest, X_train.columns)
+    # feature_importances_df.to_csv(f"{output_path}/feature_importances.csv")
+    # click.echo("Feature importances saved to results folder.")
 
 
     # Metrics for Random Forest on test data
     y_pred = random_forest.predict(X_test)
-    metrics = {
-        "Precision": precision_score(y_test, y_pred),
-        "Recall": recall_score(y_test, y_pred),
-        "Accuracy": accuracy_score(y_test, y_pred),
-        "F1 Score": f1_score(y_test, y_pred)
-    }
+    metrics = calculate_classification_metrics(y_test, y_pred)
     metrics_df = pd.DataFrame(metrics, index=[0])
     metrics_df.to_csv(f"{output_path}/random_forest_metrics.csv", index=False)
     click.echo("Performance metrics saved to results folder.")
