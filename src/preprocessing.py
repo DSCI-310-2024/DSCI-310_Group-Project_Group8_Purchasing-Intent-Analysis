@@ -47,7 +47,7 @@ def preprocess_data(x_train_file, x_test_file, y_train_file, y_test_file, train_
                         'Informational_Duration', 'ProductRelated', 'ProductRelated_Duration',
                         'BounceRates', 'ExitRates', "PageValues", 'SpecialDay']
 
-    categorical_features = ['Month', 'VisitorType']
+    categorical_features = ['Month', 'VisitorType', 'Weekend']
 
     # Use function from py_predpurchase package 
     train_transformed, test_transformed, transformed_column_names = numerical_categorical_preprocess(
