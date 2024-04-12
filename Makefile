@@ -63,4 +63,4 @@ clean-figs:
 	rm -f img/eda_*.png
 
 clean-all: clean-figs
-	rm -f data/*.csv results/*.csv results/*.png reports/*.html
+	rm -f data/checkpoints/*.csv data/cleaned/*.csv data/model-test-train/*.csv data/preprocessed/*.csv data/raw/*.csv data/test-data/*.csv results/*.csv results/*.png reports/*.html
