@@ -13,12 +13,12 @@ all:data/online_shoppers_intention.csv \
 # read data
 DATASET_ID = 468
 data/online_shoppers_intention.csv: src/read_data.py
-	python src/read_data.py $(DATASET_ID) data/raw_features.csv data/raw_targets.csv
+	python src/read_data.py $(DATASET_ID) data/raw/raw_features.csv data/raw/raw_targets.csv
 
 
 # clean data
-data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv: src/cleaning.py data/raw_features.csv data/raw_targets.csv
-	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
+data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv: src/cleaning.py data/raw/raw_features.csv data/raw/raw_targets.csv
+	python src/cleaning.py data/raw/raw_features.csv data/raw/raw_targets.csv data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
 
 # data_split
 data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv: data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
