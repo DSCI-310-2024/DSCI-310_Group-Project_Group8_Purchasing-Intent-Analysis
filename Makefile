@@ -5,7 +5,7 @@
 all:data/online_shoppers_intention.csv \
 	data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv \
 	data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv \
-	data/preprocessed_train_data.csv data/preprocessed_test_data.csv \
+	data/preprocessed/preprocessed_train_data.csv data/preprocessed/preprocessed_test_data.csv \
 	eda_figures \
 	results/model_comparison_results.csv results/random_forest_confusion_matrix.png\
 	reports/shopper_intention_analysis_report.html
@@ -25,8 +25,8 @@ data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-te
 	python src/data_split.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv
 
 # pre-process data
-data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv
-	python src/preprocessing.py data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv data/preprocessed_train_data.csv data/preprocessed_test_data.csv
+data/preprocessed/preprocessed_train_data.csv data/preprocessed/preprocessed_test_data.csv: data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv
+	python src/preprocessing.py data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv data/preprocessed/preprocessed_train_data.csv data/preprocessed/preprocessed_test_data.csv
     
 # EDA figures
 .PHONY: eda_figures
@@ -51,8 +51,8 @@ img/eda_correlation_matrix.png: data/cleaned/cleaned_features.csv data/cleaned/c
 	python src/eda_figures.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv img/eda_
 
 # analysis
-results/model_comparison_results.csv results/random_forest_confusion_matrix.png: data/preprocessed_train_data.csv data/preprocessed_test_data.csv
-	python src/analysis.py data/preprocessed_train_data.csv data/preprocessed_test_data.csv results
+results/model_comparison_results.csv results/random_forest_confusion_matrix.png: data/preprocessed/preprocessed_train_data.csv data/preprocessed/preprocessed_test_data.csv
+	python src/analysis.py data/preprocessed/preprocessed_train_data.csv data/preprocessed/preprocessed_test_data.csv results
 
 # write the report
 reports/shopper_intention_analysis_report.html : results reports/shopper_intention_analysis_report.qmd 
