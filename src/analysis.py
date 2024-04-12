@@ -63,10 +63,12 @@ def analyze_data(preprocessed_train_data, preprocessed_test_data, output_path):
     random_forest = RandomForestClassifier(n_estimators=50, max_depth=50, random_state=123)
     random_forest.fit(X_train, y_train)
 
-    # # Feature Importance using imported function
-    # feature_importances_df = get_feature_importances(random_forest, X_train.columns)
-    # feature_importances_df.to_csv(f"{output_path}/feature_importances.csv")
-    # click.echo("Feature importances saved to results folder.")
+    # Feature Importance from Random Forest
+    random_forest.fit(X_train, y_train)
+    feature_importances = pd.Series(random_forest.feature_importances_, index=X_train.columns)
+    feature_importances_sorted = feature_importances.sort_values(ascending=False)
+    feature_importances_sorted.to_csv(f"{output_path}/feature_importances.csv")
+    click.echo("Feature importances saved to results folder.")
 
 
     # Metrics for Random Forest on test data
