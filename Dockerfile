@@ -29,7 +29,7 @@ RUN curl -o quarto-linux-amd64.deb -L https://github.com/quarto-dev/quarto-cli/r
 # Install ucimlrepo using pip
 RUN pip install \
     ucimlrepo==0.0.6 \
-    py_predpurchase==0.1.3
+    py_predpurchase==0.2.0
 
 
 # Switch back to the jovyan user
