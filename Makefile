@@ -3,7 +3,7 @@
 # Main target
 # all: reports/shopper_intention_analysis_report.html
 all:data/online_shoppers_intention.csv \
-	data/cleaned_features.csv data/cleaned_targets.csv \
+	data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv \
 	data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv \
 	data/preprocessed_train_data.csv data/preprocessed_test_data.csv \
 	eda_figures \
@@ -17,12 +17,12 @@ data/online_shoppers_intention.csv: src/read_data.py
 
 
 # clean data
-data/cleaned_features.csv data/cleaned_targets.csv: src/cleaning.py data/raw_features.csv data/raw_targets.csv
-	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned_features.csv data/cleaned_targets.csv
+data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv: src/cleaning.py data/raw_features.csv data/raw_targets.csv
+	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
 
 # data_split
-data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned_features.csv data/cleaned_targets.csv
-	python src/data_split.py data/cleaned_features.csv data/cleaned_targets.csv data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
+data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
+	python src/data_split.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
 
 # pre-process data
 data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
@@ -47,8 +47,8 @@ img/eda_region_distribution.png \
 img/eda_traffic_type_distribution.png \
 img/eda_visitor_type_distribution.png \
 img/eda_weekend_distribution.png \
-img/eda_correlation_matrix.png: data/cleaned_features.csv data/cleaned_targets.csv
-	python src/eda_figures.py data/cleaned_features.csv data/cleaned_targets.csv img/eda_
+img/eda_correlation_matrix.png: data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
+	python src/eda_figures.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv img/eda_
 
 # analysis
 results/model_comparison_results.csv results/random_forest_confusion_matrix.png: data/preprocessed_train_data.csv data/preprocessed_test_data.csv
