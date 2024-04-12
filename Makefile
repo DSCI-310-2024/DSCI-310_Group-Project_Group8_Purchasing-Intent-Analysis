@@ -4,7 +4,7 @@
 # all: reports/shopper_intention_analysis_report.html
 all:data/online_shoppers_intention.csv \
 	data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv \
-	data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv \
+	data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv \
 	data/preprocessed_train_data.csv data/preprocessed_test_data.csv \
 	eda_figures \
 	results/model_comparison_results.csv results/random_forest_confusion_matrix.png\
@@ -21,12 +21,12 @@ data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv: src/cleaning
 	python src/cleaning.py data/raw_features.csv data/raw_targets.csv data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
 
 # data_split
-data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv: data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
-	python src/data_split.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
+data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv: data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv
+	python src/data_split.py data/cleaned/cleaned_features.csv data/cleaned/cleaned_targets.csv data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv
 
 # pre-process data
-data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv
-	python src/preprocessing.py data/x_train.csv data/x_test.csv data/y_train.csv data/y_test.csv data/preprocessed_train_data.csv data/preprocessed_test_data.csv
+data/preprocessed_train_data.csv data/preprocessed_test_data.csv: data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv
+	python src/preprocessing.py data/model-test-train/x_train.csv data/model-test-train/x_test.csv data/model-test-train/y_train.csv data/model-test-train/y_test.csv data/preprocessed_train_data.csv data/preprocessed_test_data.csv
     
 # EDA figures
 .PHONY: eda_figures
