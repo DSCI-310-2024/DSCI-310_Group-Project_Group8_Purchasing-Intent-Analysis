@@ -6,4 +6,4 @@ def create_dummy_data():
         'target': [0, 1, 0, 1, 0]
     }
     df = pd.DataFrame(data)
-    df.to_csv('data/cross_val_test_data.csv', index=False)
+    df.to_csv('data/test-data/cross_val_test_data.csv', index=False)
