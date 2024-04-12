@@ -103,9 +103,10 @@ def test_numerical_features_transformation(sample_data):
         assert any(col.startswith(f'numeric__{feature}') for col in transformed_columns), f"Numeric feature '{feature}' not found in transformed columns."
 
 def test_categorical_features_transformation(sample_data):
-     """
+    """
     Tests that categorical features are correctly one-hot encoded and included in the transformed
     data, which will be indicted by the presence of transformed column names.
+    
     """
     X_train, X_test, y_train, y_test, _, categorical_features = sample_data
     train_transformed, test_transformed, transformed_columns = numerical_categorical_preprocess(X_train, X_test, y_train, y_test, [], categorical_features)

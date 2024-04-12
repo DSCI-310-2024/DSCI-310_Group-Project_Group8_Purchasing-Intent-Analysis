@@ -47,11 +47,10 @@ def test_non_numeric_inputs():
         calculate_classification_metrics(y_true, y_pred)
 
 def test_empty_arrays():
-     """
+    """
     Tests that a ValueError is given when inputs are empty arrays.
     """
-     
     y_true = np.array([])
     y_pred = np.array([])
     with pytest.raises(ValueError):
-        calculate_classification_metrics(y_true, y_pred)
+        calculate_classification_metrics(y_true, y_pred) 
